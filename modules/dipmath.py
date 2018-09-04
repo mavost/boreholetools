@@ -37,7 +37,7 @@ class DipPoint(object):
 
     def __init__(self, dip=0.0, dazim=0.0):
         #debug output
-        self.verbose = 1
+        self.verbose = True
         #inclination angle between reference frame XY-plane and max falling dip 0 <= dip < pi
         self.dip = (math.pi + math.radians(dip)) % math.pi
         #azimuth angle projected to XY-plane, referenced to X-axis 0 <= dazim < 2*pi
@@ -99,7 +99,7 @@ class DipPoint(object):
         self.updateAngles(vec)
         
 class DipMarker(DipPoint):
-    def __init__(self, md, dip, dazim, wellgeometry=0, verbose=0):
+    def __init__(self, md, dip, dazim, wellgeometry=0, verbose=False):
         self.md = md
         self.in_dip = math.radians(dip)
         self.in_dazim = math.radians(dazim)
@@ -157,11 +157,10 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
     print('Testing: Class DipMarker')
     #generate a borehole deviation survey / interpolation object
-    wellgeometry = TransformBoreHoleSurvey(datadir='..\\data', mode=0, relativeCoords=1, verbose=0)
+    wellgeometry = TransformBoreHoleSurvey(datadir='..\\data', mode=0, relativeCoords=1, verbose=False)
     #correct one marker by extracting corresponding horehole inclination/azim
     print('Apply correction on one DipMarker point:')
-    #dmarker = DipMarker(5000, 45, 10, 0, verbose=1)
-    dmarker = DipMarker(5000, 45, 10, wellgeometry, verbose=1)
+    dmarker = DipMarker(5000, 45, 10, wellgeometry, verbose=True)
     print(dmarker)
     #repeat the same for data read from a file
     print('Opening dipmarker file:')
@@ -174,7 +173,7 @@ if __name__ == '__main__':                  # call test environment only if modu
         try:
             # convert data to numbers and check for depth-sorting
             line = [float(i) for i in line]
-            result.append(DipMarker(*line, wellgeometry, verbose=0))
+            result.append(DipMarker(*line, wellgeometry, verbose=False))
         except ValueError:
                 print('Exception: Error during conversion of survey data')
                 sys.exit()
@@ -192,7 +191,7 @@ if __name__ == '__main__':                  # call test environment only if modu
         outheader = ('Well: UNKNOWN', 'MD [depthunit]', 'DIP [deg]', 'DAZI [deg]')
  
     outargs = {'datadir' : '..\\data', 'filename_out' : 'out_sample-dipmarker.txt', \
-            'header_out' : outheader, 'data_out' : outdata, 'verbose' : 1}
+            'header_out' : outheader, 'data_out' : outdata, 'verbose' : True}
     writer = BHReaderWriter(**outargs)
     writer.writeData()
     print(TWIDTH*'=')

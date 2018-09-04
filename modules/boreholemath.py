@@ -156,7 +156,7 @@ class TransformBoreHoleSurvey(object):
         kwargs.setdefault('interval', 50.0)
         kwargs.setdefault('relativeCoords', 1)
         kwargs.setdefault('origin', (1000.0, 2000.0, 3000.0))
-        kwargs.setdefault('verbose', 0)
+        kwargs.setdefault('verbose', False)
         
 
 
@@ -164,7 +164,7 @@ class TransformBoreHoleSurvey(object):
         self.wellname = kwargs['wellname']
         self.datadir = kwargs['datadir']
         #catching an empty input survey filename
-        if kwargs['filename_in'] == 0:
+        if kwargs['filename_in'] == None:
             print('Warning: Using default deviation survey')
             kwargs['filename_in'] = 'sample-borehole.txt'
         self.filename_in = kwargs['filename_in']
@@ -173,7 +173,7 @@ class TransformBoreHoleSurvey(object):
         self.mode = kwargs['mode']
         self.depth_units = kwargs['depthunit']
         self.interpolation_interval = kwargs['interval']
-        self.verbose = bool(kwargs['verbose'])
+        self.verbose = kwargs['verbose']
         
         # MD/INCL/AZIM columns in input file
         try:
@@ -303,59 +303,6 @@ class TransformBoreHoleSurvey(object):
         else:
             print('No output file generated')
 
-    # def writeBHFile(self):
-        # filename = self.datadir + '\\' + self.filename_out
-        # with open(filename, 'w', newline='') as csvfile:
-            # csvwriter = csv.writer(csvfile, delimiter=',')
-            # csvwriter.writerow(self.outfileheader)
-            # for item in self.output_pointlist:
-                # #print(item.outputList())
-                # csvwriter.writerow(item.outputList())
-        # print('Number of points written: ', len(self.output_pointlist))
-        
-        
-    # def readBHFile(self):
-        # filename = self.datadir + '\\' + self.filename_in
-        # #with open(filename, 'r') as f:
-        # #    num_lines=sum(1 for _ in f)
-        # #    print('Number of lines in file:', num_lines)
-        # with open(filename, 'r') as csvfile:
-            # csvreader = csv.reader(csvfile, delimiter=',', quotechar='|', skipinitialspace=True)
-            # #print(self.wellname)
-            # for _ in range(self.filename_in_lineskip):
-                # row = next(csvreader)
-                # #print(row)
-                # #skip some header lines and
-                # #try parsing well name from deviation file header
-                # if(self.wellname == 'UNKNOWN'):
-                    # #join the original list of strings back together and match by regular expression
-                    # res_match = match(r"(?i)well:\s*(\S*?),", ','.join(row))
-                    # #print(','.join(row))
-                    # #print(rematch)
-                    # if(res_match):
-                        # self.wellname = res_match.group(1)
-                # #print(self.wellname)
-                
-
-            # prev=-1
-            # for row in csvreader:
-                # #copy lines into array
-                # try:
-                    # md = float(row[self.borehole_columns[0]])
-                    # incl = float(row[self.borehole_columns[1]])
-                    # azim = float(row[self.borehole_columns[2]])
-                    # self.survey_points.append(CLPoint(md,incl,azim))
-                    # if md<prev:
-                        # raise Exception('MD values are not ascending')
-                    # prev = md
-                # except ValueError:
-                    # print('Conversion error occured')
-                    # sys.exit()
-        # print('Number of points read: ', len(self.survey_points))
-        # if self.verbose : 
-            # for row in self.survey_points:
-                # print(row)
-
     def setupMinCurvPairs(self, clpoints):
         #build list of curve pairs and calculate min. curvature parameters
         for pairs in zip(clpoints[0:-1], clpoints[1:]):
@@ -459,7 +406,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
     print('module test: boreholemath'.ljust(TWIDTH,'-'))
     print(TWIDTH*'=')
-    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=0, origin=(-100, -200, 100), verbose=0)
+    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=0, origin=(-100, -200, 100), verbose=False)
     transform.generateOutput(mode=2)
     transform.generateOutput(mode=3)
     #print(transform.calculateCLPoint(-102))

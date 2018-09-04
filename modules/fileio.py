@@ -21,7 +21,7 @@ class BHReaderWriter(object):
         kwargs.setdefault('filename_out', 'dummy.txt')
         kwargs.setdefault('header_out', ('DEFAULT',))
         kwargs.setdefault('data_out', [])
-        kwargs.setdefault('verbose', 0)
+        kwargs.setdefault('verbose', False)
         self.path = kwargs['datadir']
         self.filein = kwargs['filename_in']
         self.headerlines = kwargs['headerlines']
@@ -95,7 +95,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     for line in rw.readHead():
         print(line.rstrip('\r\n'))
     data = [[1, 6, 3 ,6]]
-    rw = BHReaderWriter(headerlines=1, columns_in=(1,0), data_out=data, verbose=1)
+    rw = BHReaderWriter(headerlines=1, columns_in=(1,0), filename_out='TestOut_fileio.txt', data_out=data, verbose=True)
     for line in rw.readData():
         print(line)
     rw.writeData()

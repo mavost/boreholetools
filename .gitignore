@@ -2,6 +2,7 @@
 ###########
 *.pdf
 *.svg
+*.pyc
 
 # Compiled source #
 ###################

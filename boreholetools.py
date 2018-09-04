@@ -26,7 +26,7 @@ except:
 
 
 def main():
-    transform = TransformBoreHoleSurvey(datadir='data', filename_in='sample-borehole.txt', mode=2, verbose=0)
+    transform = TransformBoreHoleSurvey(datadir='data', filename_in='sample-borehole.txt', mode=2, verbose=False)
     point = DipPoint(45, 0)
     dmarker = DipMarker(5000, 45, 10, transform)
     

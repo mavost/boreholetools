@@ -19,15 +19,14 @@ from fileio import BHReaderWriter
 
 class Well(object):
     DEPTHUNIT = 'ft'
-    VERBOSE = 0
-    def __init__(self, wellfile=0, wellname='UNKNOWN', origin=(0.0, 0.0, 0.0), verbose=0):
+    VERBOSE = False
+    def __init__(self, wellfile=None, wellname='UNKNOWN', origin=(0.0, 0.0, 0.0), verbose=False):
         self.wellname = wellname
+        self.wellorigin = origin #(N, E, KB) with KB being a positive number above reference level
+        Well.VERBOSE = verbose
         inargs = {'depthunit' : Well.DEPTHUNIT, 'mode' : 0, 'datadir' : '..\\data', 'filename_in' : wellfile, 'wellname' : wellname, \
                 'headerlines' : 1, 'columns_in' : (1,2,3), 'verbose' : verbose, 'relativeCoords' : 0, 'origin' : origin, 'mode' : 1}
         self.geometry = TransformBoreHoleSurvey(**inargs)
-        if verbose > 0:
-            Well.VERBOSE = True
-        self.wellorigin = origin #(N, E, KB) with KB being a positive number above reference level
 
     def depthToMetric(self):
         Well.DEPTHUNIT = 'm'
@@ -51,7 +50,7 @@ class WellDatabase(object):
         kwargs.setdefault('columns_in', (1,2,3))
         kwargs.setdefault('filename_out_ext', 'out_')
         kwargs.setdefault('mode', 0)
-        kwargs.setdefault('verbose', 0)
+        kwargs.setdefault('verbose', False)
 
         ############variables
         self.wells = []
@@ -60,7 +59,7 @@ class WellDatabase(object):
         self.mode = kwargs['mode']
         self.depth_units = kwargs['depthunit']
         self.interpolation_interval = kwargs['interval']
-        self.verbose = bool(kwargs['verbose'])
+        self.verbose = kwargs['verbose']
         
     def addWell(self, filename, wellname, origin):
         self.wells.append(Well(filename, wellname, origin))
@@ -72,7 +71,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print('module test: welldatabase'.ljust(TWIDTH,'-'))
     print(TWIDTH*'=')
     print('Testing: Class Well')
-    well = Well(verbose=1)
+    well = Well(verbose=True)
     print(well)
     well.depthToMetric()
     print(TWIDTH*'=')
@@ -89,7 +88,7 @@ if __name__ == '__main__':                  # call test environment only if modu
             wname = line[0]
             wcoordinates = tuple([float(i) for i in line[1:4]])
             wfname = line[4]
-            welldb.append(Well(wellfile=wfname, wellname=wname, origin=wcoordinates, verbose=0))
+            welldb.append(Well(wellfile=wfname, wellname=wname, origin=wcoordinates, verbose=True))
         except ValueError:
                 print('Exception: Error during conversion of well head data')
                 sys.exit()
