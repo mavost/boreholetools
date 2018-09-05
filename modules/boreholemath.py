@@ -148,14 +148,13 @@ class TransformBoreHoleSurvey(object):
         kwargs.setdefault('wellname', 'UNKNOWN')
         kwargs.setdefault('datadir', 'data')
         kwargs.setdefault('filename_in', 'sample-borehole.txt')
-        kwargs.setdefault('headerlines', 1)
+        kwargs.setdefault('headerlines_in', 1)
         kwargs.setdefault('columns_in', (1,2,3))
-        kwargs.setdefault('filename_out', 'dummy.txt')
         kwargs.setdefault('mode', 0)
         kwargs.setdefault('depthunit', 'ft')
         kwargs.setdefault('interval', 50.0)
-        kwargs.setdefault('relativeCoords', 1)
-        kwargs.setdefault('origin', (1000.0, 2000.0, 3000.0))
+        kwargs.setdefault('relativeCoords', True)
+        kwargs.setdefault('origin', (0.0, 0.0, 0.0))
         kwargs.setdefault('verbose', False)
         
 
@@ -164,14 +163,12 @@ class TransformBoreHoleSurvey(object):
         self.wellname = kwargs['wellname']
         self.datadir = kwargs['datadir']
         #catching an empty input survey filename
-        if kwargs['filename_in'] == None:
+        if kwargs['filename_in'] == 'sample-borehole.txt':
             print('Warning: Using default deviation survey')
-            kwargs['filename_in'] = 'sample-borehole.txt'
         self.filename_in = kwargs['filename_in']
-        self.filename_out = kwargs['filename_out']
         #interpolate in different modes
         self.mode = kwargs['mode']
-        self.depth_units = kwargs['depthunit']
+        self.depthunit = kwargs['depthunit']
         self.interpolation_interval = kwargs['interval']
         self.verbose = kwargs['verbose']
         
@@ -196,7 +193,7 @@ class TransformBoreHoleSurvey(object):
                     print('Reading well name from file successful: {0:s}'.format(self.wellname))
             
         #output absolute or relative Cartesian coordinates
-        if kwargs['relativeCoords'] != 1:
+        if kwargs['relativeCoords'] == False:
             self.relativeCoords = False
             self.origin = kwargs['origin']
             if len(self.origin) != 3:
@@ -255,15 +252,15 @@ class TransformBoreHoleSurvey(object):
         if 0 < mode < 4:
             #generate Cartesian coordinate file from original curvelinear coordinate file
             wellnote = 'Well: ' + self.wellname
-            self.filename_out = self.wellname 
+            filename_out = self.wellname 
             if mode == 1:
                 self.cartesian_points =[]
                 self.buildCartesianPoints()
-                self.filename_out+='_out_borehole_cart_orig.txt'
+                filename_out+='_out_borehole_cart_orig.txt'
                 if(self.relativeCoords):
-                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depth_units+']')
+                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
                 else:
-                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depth_units+']')
+                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depthunit+']')
                 pointlist = self.cartesian_points
 #               for row in self.cartesian_points:
 #                  print(row)
@@ -272,8 +269,8 @@ class TransformBoreHoleSurvey(object):
                 self.interpolation_points = []
                 self.setupCLPoints()
                 self.interpolateCLPoints()
-                self.filename_out+='_out_borehole_curve_inter.txt'
-                outheader = (wellnote, 'MD ['+self.depth_units+']', 'INCL [deg]', 'AZIM [deg]')
+                filename_out+='_out_borehole_curve_inter.txt'
+                outheader = (wellnote, 'MD ['+self.depthunit+']', 'INCL [deg]', 'AZIM [deg]')
                 pointlist = self.interpolation_points
             
             #generate and output Cartesian coordinate file from interpolated data
@@ -285,18 +282,18 @@ class TransformBoreHoleSurvey(object):
                 self.setupMinCurvPairs(self.interpolation_points)
                 self.cartesian_points =[]
                 self.buildCartesianPoints()
-                self.filename_out+='_out_borehole_cart_inter.txt'
+                filename_out+='_out_borehole_cart_inter.txt'
                 if(self.relativeCoords):
-                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depth_units+']')
+                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
                 else:
-                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depth_units+']')
+                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depthunit+']')
                 pointlist = self.cartesian_points
 #               for row in self.cartesian_points:
 #                   print(row)
             outdata = []
             for item in pointlist:
                 outdata.append(item.outputList())
-            outargs={'datadir' : self.datadir, 'filename_out' : self.filename_out, \
+            outargs={'datadir' : self.datadir, 'filename_out' : filename_out, \
                 'header_out' : outheader, 'data_out' : outdata, 'verbose' : self.verbose}
             writer = BHReaderWriter(**outargs)
             writer.writeData()
@@ -316,7 +313,7 @@ class TransformBoreHoleSurvey(object):
     def buildCartesianPoints(self):
         current = CartPoint(self.origin[0], self.origin[1], -self.origin[2])
         self.cartesian_points.append(current)
-        if self.depth_units == 'ft':
+        if self.depthunit == 'ft':
             for curvepair in self.curve_pairs:
                 delta = self.calculateCartesianDeltas(curvepair)
                 delta.scaleXY()
@@ -406,7 +403,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
     print('module test: boreholemath'.ljust(TWIDTH,'-'))
     print(TWIDTH*'=')
-    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=0, origin=(-100, -200, 100), verbose=False)
+    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=False, origin=(-100, -200, 100), verbose=False)
     transform.generateOutput(mode=2)
     transform.generateOutput(mode=3)
     #print(transform.calculateCLPoint(-102))

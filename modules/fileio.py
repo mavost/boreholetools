@@ -16,7 +16,7 @@ class BHReaderWriter(object):
     def __init__(self, **kwargs):
         kwargs.setdefault('datadir', '..\\data')
         kwargs.setdefault('filename_in', 'sample-borehole.txt')
-        kwargs.setdefault('headerlines', 1)
+        kwargs.setdefault('headerlines_in', 1)
         kwargs.setdefault('columns_in', (0,1,2))
         kwargs.setdefault('filename_out', 'dummy.txt')
         kwargs.setdefault('header_out', ('DEFAULT',))
@@ -24,7 +24,7 @@ class BHReaderWriter(object):
         kwargs.setdefault('verbose', False)
         self.path = kwargs['datadir']
         self.filein = kwargs['filename_in']
-        self.headerlines = kwargs['headerlines']
+        self.headerlines = kwargs['headerlines_in']
         self.columns = kwargs['columns_in']
         self.fileout = kwargs['filename_out']
         self.headerout = kwargs['header_out']
@@ -91,11 +91,11 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
 
     print('Reading and Writing files:')
-    rw = BHReaderWriter(headerlines=3)
+    rw = BHReaderWriter(headerlines_in=3)
     for line in rw.readHead():
         print(line.rstrip('\r\n'))
     data = [[1, 6, 3 ,6]]
-    rw = BHReaderWriter(headerlines=1, columns_in=(1,0), filename_out='TestOut_fileio.txt', data_out=data, verbose=True)
+    rw = BHReaderWriter(headerlines_in=1, columns_in=(1,0), filename_out='TestOut_fileio.txt', data_out=data, verbose=True)
     for line in rw.readData():
         print(line)
     rw.writeData()

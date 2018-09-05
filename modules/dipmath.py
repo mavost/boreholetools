@@ -157,7 +157,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
     print('Testing: Class DipMarker')
     #generate a borehole deviation survey / interpolation object
-    wellgeometry = TransformBoreHoleSurvey(datadir='..\\data', mode=0, relativeCoords=1, verbose=False)
+    wellgeometry = TransformBoreHoleSurvey(datadir='..\\data', mode=0, relativeCoords=True, verbose=False)
     #correct one marker by extracting corresponding horehole inclination/azim
     print('Apply correction on one DipMarker point:')
     dmarker = DipMarker(5000, 45, 10, wellgeometry, verbose=True)
@@ -165,7 +165,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     #repeat the same for data read from a file
     print('Opening dipmarker file:')
     inargs = {'datadir' : '..\\data', 'filename_in':'sample-dipmarker.txt', \
-                'headerlines':1, 'columns_in':(1,2,3)}
+                'headerlines_in':1, 'columns_in':(1,2,3)}
     reader = BHReaderWriter(**inargs)
     lines = reader.readData()
     result = []
