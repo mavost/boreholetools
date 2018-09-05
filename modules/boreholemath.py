@@ -252,11 +252,11 @@ class TransformBoreHoleSurvey(object):
         if 0 < mode < 4:
             #generate Cartesian coordinate file from original curvelinear coordinate file
             wellnote = 'Well: ' + self.wellname
-            filename_out = self.wellname 
+            filename_out = 'out_' + self.wellname 
             if mode == 1:
                 self.cartesian_points =[]
                 self.buildCartesianPoints()
-                filename_out+='_out_borehole_cart_orig.txt'
+                filename_out+='_borehole_cart_orig.txt'
                 if(self.relativeCoords):
                     outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
                 else:
@@ -269,7 +269,7 @@ class TransformBoreHoleSurvey(object):
                 self.interpolation_points = []
                 self.setupCLPoints()
                 self.interpolateCLPoints()
-                filename_out+='_out_borehole_curve_inter.txt'
+                filename_out+='_borehole_curve_inter.txt'
                 outheader = (wellnote, 'MD ['+self.depthunit+']', 'INCL [deg]', 'AZIM [deg]')
                 pointlist = self.interpolation_points
             
@@ -282,7 +282,7 @@ class TransformBoreHoleSurvey(object):
                 self.setupMinCurvPairs(self.interpolation_points)
                 self.cartesian_points =[]
                 self.buildCartesianPoints()
-                filename_out+='_out_borehole_cart_inter.txt'
+                filename_out+='_borehole_cart_inter.txt'
                 if(self.relativeCoords):
                     outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
                 else:
@@ -403,7 +403,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print(TWIDTH*'=')
     print('module test: boreholemath'.ljust(TWIDTH,'-'))
     print(TWIDTH*'=')
-    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=False, origin=(-100, -200, 100), verbose=False)
+    transform = TransformBoreHoleSurvey(datadir='..\\data', mode=1, relativeCoords=False, wellname='test01', origin=(-100, -200, 100), verbose=False)
     transform.generateOutput(mode=2)
     transform.generateOutput(mode=3)
     #print(transform.calculateCLPoint(-102))

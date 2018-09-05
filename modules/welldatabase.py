@@ -56,8 +56,9 @@ class Well(object):
         #(N(X), E(Y), KB) with KB being a positive number above reference level
         self.wellorigin = kwargs['origin'] 
         devinargs = {'depthunit':Well.DEPTHUNIT, 'verbose':Well.VERBOSE, 'datadir':kwargs['datadir'], \
-                'filename_in':kwargs['filename_in'], 'headerlines_in':kwargs['headerlines_in'], 'columns_in':kwargs['columns_in'], \
-                'relativeCoords':False, 'origin':self.wellorigin, 'mode':kwargs['mode'], 'interval':kwargs['interval']}
+                'filename_in':kwargs['filename_in'], 'wellname':self.wellname, 'origin':self.wellorigin, \
+                'headerlines_in':kwargs['headerlines_in'], 'columns_in':kwargs['columns_in'], \
+                'relativeCoords':False, 'mode':kwargs['mode'], 'interval':kwargs['interval']}
         self.geometry = TransformBoreHoleSurvey(**devinargs)
 
     def __str__(self):
@@ -123,7 +124,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     print('Opening well head file and creating well database:')
     try:
         inargs = {'datadir':'..\\data', 'filename_in':'sample-wellheads.txt', \
-              'verbose':True}
+                  'mode':3, 'verbose':True}
         welldb = WellDatabase(**inargs)
         print(welldb)
     except:

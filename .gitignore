@@ -3,6 +3,7 @@
 *.pdf
 *.svg
 *.pyc
+out_*.txt
 
 # Compiled source #
 ###################

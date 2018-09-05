@@ -95,7 +95,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     for line in rw.readHead():
         print(line.rstrip('\r\n'))
     data = [[1, 6, 3 ,6]]
-    rw = BHReaderWriter(headerlines_in=1, columns_in=(1,0), filename_out='TestOut_fileio.txt', data_out=data, verbose=True)
+    rw = BHReaderWriter(headerlines_in=1, columns_in=(1,0), filename_out='out_test_fileio.txt', data_out=data, verbose=True)
     for line in rw.readData():
         print(line)
     rw.writeData()
