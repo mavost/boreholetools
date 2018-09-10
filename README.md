@@ -8,7 +8,9 @@
 boreholetools is a collection of modules to QC geoscientific borehole data of various types:
 
 -convert/verify/interpolate well trajectory data / deviation surveys
+
 -convert apparent bed dip/dip azimuth information measured within a wellbore to true bed dip/dip azimuth
+
 -calculate true vertical/stratigraphic thickness from well marker files using dip information
 
 Planned upgrades:
