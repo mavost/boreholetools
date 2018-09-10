@@ -100,7 +100,8 @@ class WellMarker(DipMarker):
     def outShort(self):
         return '\t{0:20.19s}\t'.format(Stratigraphy.STRAT[self.strat]) + super(WellMarker, self).__str__()
 
-class WellMarkerLoading(object):
+#move to welldatabase
+class WellMarkerLoading(object): 
     def __init__(self, **kwargs):
         ############defaults
         kwargs.setdefault('welldatabase', None)
