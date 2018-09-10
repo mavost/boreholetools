@@ -1,0 +1,13 @@
+ID,ABREVIATION,NAME,AGE TOP
+30,N1,Miocene,5.33
+50,E2,Eocene,33.90
+70,K2M,Maastrichtian,66.00
+10,REF,Reference Level,0.00
+90,K2S,Santonian,83.60
+120,K2Cn,Cenomanian,93.90
+140,K1Ap,Aptian,113.00
+200,J3K,Kimmeridgian,152.10
+310,T3,Upper Triassic,201.30
+320,T2,Middle Triassic,237.00
+330,T1,Lower Triassic,247.20
+340,P,Permian,251.90

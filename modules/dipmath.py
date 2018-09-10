@@ -99,16 +99,22 @@ class DipPoint(object):
         self.updateAngles(vec)
         
 class DipMarker(DipPoint):
-    def __init__(self, md, dip, dazim, wellgeometry=0, verbose=False):
+    def __init__(self, md, dip=None, dazim=None, wellgeometry=0, verbose=False):
         self.md = md
-        self.in_dip = math.radians(dip)
-        self.in_dazim = math.radians(dazim)
-        #conversion to radians in DipPoint class
-        super(DipMarker, self).__init__(dip, dazim)
+        if dip is not None and dazim is not None:
+            self.in_dip = math.radians(dip)
+            self.in_dazim = math.radians(dazim)
+            #conversion to radians in DipPoint class
+            super(DipMarker, self).__init__(dip, dazim)
+        else:
+            #initialize as zero
+            self.in_dip = 0.0
+            self.in_dazim = 0.0
+            super(DipMarker, self).__init__(0.0, 0.0)
         self.verbose = verbose
         if self.verbose:
             print(self)
-        if wellgeometry!=0:
+        if wellgeometry!=0 and dip is not None and dazim is not None:
             self.clpoint = wellgeometry.calculateCLPoint(self.md)
             if self.verbose:
                 print('Dipmarker correction:')

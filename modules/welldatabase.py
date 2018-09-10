@@ -16,6 +16,7 @@ import glob
 
 from boreholemath import TransformBoreHoleSurvey
 from fileio import BHReaderWriter
+import markermath
 
 class Well(object):
     DEPTHUNIT = 'ft'
@@ -60,6 +61,7 @@ class Well(object):
                 'headerlines_in':kwargs['headerlines_in'], 'columns_in':kwargs['columns_in'], \
                 'relativeCoords':False, 'mode':kwargs['mode'], 'interval':kwargs['interval']}
         self.geometry = TransformBoreHoleSurvey(**devinargs)
+        self.markers = {} #need to allow for multiple entries? -> not for my purpose
 
     def __str__(self):
         return 'Well name: {0:s}, X: {1:10.1f}, Y: {2:10.1f}, KB: {3:6.1f}'.format(self.wellname, *self.wellorigin)
@@ -80,7 +82,7 @@ class WellDatabase(object):
         kwargs.setdefault('interval', 50)
 
         ############variables
-        self.welldb = []
+        self.wells = {} #dictionary
         self.verbose = kwargs['verbose']
         if self.verbose:
             Well.switchVerbose()
@@ -99,15 +101,21 @@ class WellDatabase(object):
                 wfname = line[4]
                 wellinargs = {'datadir':kwargs['datadir'], 'wellname':wname, 'origin':wcoordinates, \
                               'filename_in':wfname, 'mode':kwargs['mode'], 'interval':kwargs['interval']}
-                self.welldb.append(Well(**wellinargs))
+                if wname not in self.wells:
+                    self.wells[wname]=Well(**wellinargs)
+                else:
+                    print('Warning: Double occurence of name in well head file, keeping first instance')
             except ValueError:
                     print('Exception: Error during conversion of well head data')
                     sys.exit()
             print('Input Name: {0:s}, X: {1:10.1f}, Y: {2:10.1f}, KB: {3:6.1f}'.format(wname, *wcoordinates))
-            print(str(self.welldb[-1]))
+            print(str(self.wells[wname]))
+
+    def getWellsSorted(self):
+        return dict(sorted(self.wells.items(), key=lambda x: x[0]))
 
     def __str__(self):
-        return 'Number of wells loaded: {0:4d}'.format(len(self.welldb))
+        return 'Number of wells loaded: {0:4d}'.format(len(self.wells))
 
             
 if __name__ == '__main__':                  # call test environment only if module is called standalone
