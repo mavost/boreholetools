@@ -152,6 +152,7 @@ class TransformBoreHoleSurvey(object):
         kwargs.setdefault('columns_in', (1,2,3))
         kwargs.setdefault('mode', 0)
         kwargs.setdefault('depthunit', 'ft')
+        kwargs.setdefault('surfaceunit', 'ft')
         kwargs.setdefault('interval', 50.0)
         kwargs.setdefault('relativeCoords', True)
         kwargs.setdefault('origin', (0.0, 0.0, 0.0))
@@ -168,7 +169,16 @@ class TransformBoreHoleSurvey(object):
         self.filename_in = kwargs['filename_in']
         #interpolate in different modes
         self.mode = kwargs['mode']
-        self.depthunit = kwargs['depthunit']
+        if kwargs['depthunit'] in ('ft','m'):
+            self.depthunit = kwargs['depthunit']
+        else:
+            print('Warning: Using default vertical unit [ft]')
+            self.depthunit ='ft'
+        if kwargs['surfaceunit'] in ('ft','m'):
+            self.surfunit = kwargs['surfaceunit']
+        else:
+            print('Warning: Using default surface unit [ft]')
+            self.surfunit ='ft'
         self.interpolation_interval = kwargs['interval']
         self.verbose = kwargs['verbose']
         
@@ -258,9 +268,9 @@ class TransformBoreHoleSurvey(object):
                 self.buildCartesianPoints()
                 filename_out+='_borehole_cart_orig.txt'
                 if(self.relativeCoords):
-                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
+                    outheader = (wellnote, 'dX(N) ['+self.surfunit+']', 'dY(E) ['+self.surfunit+']', 'dZ(TVD) ['+self.depthunit+']')
                 else:
-                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depthunit+']')
+                    outheader = (wellnote, 'X(N) ['+self.surfunit+']', 'Y(E) ['+self.surfunit+']', 'Z(TVD) ['+self.depthunit+']')
                 pointlist = self.cartesian_points
 #               for row in self.cartesian_points:
 #                  print(row)
@@ -284,9 +294,9 @@ class TransformBoreHoleSurvey(object):
                 self.buildCartesianPoints()
                 filename_out+='_borehole_cart_inter.txt'
                 if(self.relativeCoords):
-                    outheader = (wellnote, 'dX(N) [m]', 'dY(E) [m]', 'dZ(TVD) ['+self.depthunit+']')
+                    outheader = (wellnote, 'dX(N) ['+self.surfunit+']', 'dY(E) ['+self.surfunit+']', 'dZ(TVD) ['+self.depthunit+']')
                 else:
-                    outheader = (wellnote, 'X(N) [m]', 'Y(E) [m]', 'Z(TVD) ['+self.depthunit+']')
+                    outheader = (wellnote, 'X(N) ['+self.surfunit+']', 'Y(E) ['+self.surfunit+']', 'Z(TVD) ['+self.depthunit+']')
                 pointlist = self.cartesian_points
 #               for row in self.cartesian_points:
 #                   print(row)
@@ -313,17 +323,17 @@ class TransformBoreHoleSurvey(object):
     def buildCartesianPoints(self):
         current = CartPoint(self.origin[0], self.origin[1], -self.origin[2])
         self.cartesian_points.append(current)
-        if self.depthunit == 'ft':
-            for curvepair in self.curve_pairs:
-                delta = self.calculateCartesianDeltas(curvepair)
-                delta.scaleXY()
-                current += delta
-                self.cartesian_points.append(current)
-        else:
-            for curvepair in self.curve_pairs:
-                delta = self.calculateCartesianDeltas(curvepair)
-                current += delta
-                self.cartesian_points.append(current)
+        if self.depthunit == self.surfunit:
+            scaler = 1.0
+        elif self.depthunit == 'ft':
+            scaler = .3048
+        else: #unlikely case
+            scaler = 1/.3048
+        for curvepair in self.curve_pairs:
+            delta = self.calculateCartesianDeltas(curvepair)
+            delta.scaleXY(scaler)
+            current += delta
+            self.cartesian_points.append(current)
 
     def calculateCartesianDeltas(self, pair):
         dx = math.sin(pair.pA.incl) * math.cos(pair.pA.azim) + math.sin(pair.pB.incl) * math.cos(pair.pB.azim)
@@ -407,5 +417,6 @@ if __name__ == '__main__':                  # call test environment only if modu
     transform.generateOutput(mode=2)
     transform.generateOutput(mode=3)
     #print(transform.calculateCLPoint(-102))
+    transform = TransformBoreHoleSurvey(datadir='..\\data', filename_in='sample-fieldtest.dev', mode=1, columns_in=(0,1,2), relativeCoords=False, wellname='fieldtest', verbose=False, depthunit='ft', surfaceunit='ft')
 else:
     print('Importing ' + __name__)
