@@ -1,6 +1,6 @@
 # boreholetools
 *VERSION: 1.0*
-*LAST CHANGE: 04/09/2018*
+*LAST CHANGE: 13/09/2018*
 
 boreholetools is a collection of modules to QC geoscientific borehole data of various types
 * convert/verify/interpolate well trajectory data / deviation surveys
@@ -73,7 +73,7 @@ We use [Git](http://git-scm.com/) for versioning.
 
 * **Markus von Steht** - *Initial work* - [mavost](https://github.com/mavost)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/mavost/boreholetools/graphs/contributors) who participated in this project.
 
 ## License
 
