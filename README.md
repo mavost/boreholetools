@@ -1,6 +1,6 @@
 # boreholetools
 *VERSION: 1.0*
-*LAST CHANGE: 13/09/2018*
+*LAST CHANGE: 20/09/2018*
 
 boreholetools is a collection of modules to QC geoscientific borehole data of various types
 * convert/verify/interpolate well trajectory data / deviation surveys

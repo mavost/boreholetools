@@ -9,7 +9,6 @@
 """ tools for manipulating dipmeter interpretation files
 """
 
-import csv
 import math
 import sys
 
@@ -17,20 +16,24 @@ from boreholemath import TransformBoreHoleSurvey
 from fileio import BHReaderWriter
 
 class DipPoint(object):
+    """provides dip and dip azimuth properties to a point including a corresponding tangential vector and its manipulation"""
     @staticmethod
     def getMatX(angle):
+        """returns a matrix rotation along X axis"""
         return [[1.0, 0.0, 0.0], \
                 [0.0, math.cos(angle), -math.sin(angle)], \
                 [0.0, math.sin(angle), math.cos(angle)]]
     
     @staticmethod
     def getMatY(angle):
+        """returns a matrix rotation along Y axis"""
         return [[math.cos(angle), 0.0, math.sin(angle)], \
                 [0.0, 1.0, 0.0], \
                 [-math.sin(angle), 0.0, math.cos(angle)]]
 
     @staticmethod
     def getMatZ(angle):
+        """returns a matrix rotation along Z axis"""
         return [[math.cos(angle), -math.sin(angle), 0.0], \
                 [math.sin(angle), math.cos(angle), 0.0], \
                 [0.0, 0.0, 1.0]]
@@ -49,11 +52,11 @@ class DipPoint(object):
         self.dipV = math.sin(self.dip)
     
     def updateAngles(self, newdips):
-        #back-calculate angles from updated tangential vetor
+        """back-calculate dip and dip azimuth from tangential vetor"""
         try:
             if len(newdips) != 3:
-                raise Exception('Exception: Angle update failed.')
-                sys.exit()
+                raise ValueError('Exception: Dip vector has wrong number of components: ', len(newdips))
+            #calculate length of 
             length = math.sqrt(newdips[0]*newdips[0]+newdips[1]*newdips[1]+newdips[2]*newdips[2])
             if length>0:
                 #if dip vector is too long - rescale to unit vector
@@ -61,7 +64,7 @@ class DipPoint(object):
                 self.dipE = newdips[1] / length
                 self.dipV = newdips[2] / length
             else:
-                raise Exception('Exception: Dip vector is empty.')
+                raise ValueError('Exception: Dip vector has zero length')
             horiz = math.sqrt(self.dipN * self.dipN + self.dipE * self.dipE)
             self.dip = math.acos(horiz)
             self.dazim = (math.pi * 2.0 + math.atan2(self.dipE, self.dipN)) % (math.pi * 2.0)
@@ -69,11 +72,12 @@ class DipPoint(object):
                 #print('New tangential vector:')
                 print('              X: {0:7.2f}, Y: {1:7.2f}, Z: {2:7.2f}'.format(*newdips))
                 print('              Dip: {0:8.3f}, Azimuth: {1:8.3f}'.format(math.degrees(self.dip), math.degrees(self.dazim)))
-        except:
-            print('Exception: Angle update failed - further error')
+        except ValueError as err:
+            print(err.args)
+            sys.exit()
     
     def __str__(self):
-        # overloading string operator
+        """overloaded string operator"""
         return 'Dip: {0:8.3f}, Azimuth: {1:8.3f}'.format(math.degrees(self.dip), math.degrees(self.dazim))
     
     def rotate(self, matrixFunc, angle):

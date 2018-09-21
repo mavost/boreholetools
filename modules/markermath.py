@@ -104,15 +104,14 @@ class WellMarker(DipMarker):
 class WellMarkerLoading(object): 
     def __init__(self, **kwargs):
         ############defaults
-        kwargs.setdefault('welldatabase', None)
         kwargs.setdefault('datadir', 'data')
-        kwargs.setdefault('filename_strat_def', None)
-        kwargs.setdefault('filename_strat_order', None)
+        kwargs.setdefault('verbose', False)
+        kwargs.setdefault('welldatabase', None)
         kwargs.setdefault('filename_in', 'sample-markers.txt')
         kwargs.setdefault('headerlines_in', 1)
         kwargs.setdefault('columns_in', (1,2,3,4,5))
-        kwargs.setdefault('filename_out', 'dummy.txt')
-        kwargs.setdefault('verbose', False)
+        kwargs.setdefault('filename_strat_def', None)
+        kwargs.setdefault('filename_strat_order', None)
         
         ############variables
         self.welldb = kwargs['welldatabase']
@@ -136,10 +135,10 @@ class WellMarkerLoading(object):
 
     def loadStratMarkers(self, markerfile, headerlines=1, columns=(1,2,3,4,5)):
         print('Opening marker file:')
-        inargs = {'filename_in':markerfile, \
+        inargs = {'datadir':self.datadir, 'filename_in':markerfile, \
                     'headerlines_in':headerlines, 'columns_in':columns}
         if(len(columns)) not in (3,5):
-            print('Error: Column specification in marker file requires three or five rows to be supplied\n\tformat: WELLID, MARKERID, DEPTH MD [length], DIP(opt) [deg], DAZIM(opt) [deg]')
+            print('Error: Column specification in marker file requires three or five rows to be supplied\n\tformat: WELL NAME, MARKER CODE, DEPTH MD [length], DIP(opt) [deg], DAZIM(opt) [deg]')
             sys.exit()
         try:
             #build dictionary of relevant markers
@@ -196,8 +195,6 @@ class WellMarkerLoading(object):
                     print('Exception: printStratMarkers output error')
                     sys.exit()
 
-    def __str__(self):
-        return '{0:s} Marker, Formation age: {1:s}, Depth: {2:8.3f}\n\t'.format(WellMarker.TYPE[self.type][1], Stratigraphy.STRAT[self.strat][1], self.md) + super(WellMarker, self).__str__()
 
 if __name__ == '__main__':                  # call test environment only if module is called standalone
     TWIDTH=79                               # terminal width excluding EOL
@@ -218,6 +215,7 @@ if __name__ == '__main__':                  # call test environment only if modu
     inargs = {'datadir':'..\\data', 'filename_strat_def':'sample-stratdef.txt', 'filename_strat_order':'sample-stratorder.txt',\
               'verbose':True}
     loading = WellMarkerLoading(**inargs)
+    loading.printStratMarkers()
     
 else:
     print('Importing ' + __name__)

@@ -4,6 +4,8 @@
 *.svg
 *.pyc
 out_*.txt
+.idea
+docs/Directional Surveys
 
 # Compiled source #
 ###################
