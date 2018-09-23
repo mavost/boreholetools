@@ -12,7 +12,7 @@ import argparse
 import sys
 import os
 # add extra path into search list for paths
-sys.path.insert(0, 'H:\\09_Work\\python-workspace\\Code\\boreholetools\\modules')
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'modules'))
 # disable for production
 print(sys.path)
 
