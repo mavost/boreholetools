@@ -1,0 +1,253 @@
+/**
+* Awesome website
+* @author YOUR_NAME_HERE
+* @version 0.1
+*/
+
+/* ============================ RESET ============================ */
+
+/* ===== Eric Meyer Reset ===== */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ===== CUSTOM RESET ===== */
+
+object{outline:none; display:block; overflow:hidden} /* force redraw on IE8, fix outline/scroll bug on Firefox 3.6, remove unnecessary margin (copied from swffit)  */
+textarea{overflow:auto} /* fix IE */
+iframe{border:0}
+
+/* fix line-height [https://gist.github.com/413930] */
+sup, sub{line-height:0; font-size:.75em; position:relative; vertical-align:baseline}
+sup{top:-0.5em}
+sub{bottom:-0.25em}
+
+
+/* ========================= GENERAL TAGS ======================== */
+
+html{font-family:Arial, Helvetica, sans-serif; overflow-y:scroll; min-width:1000px}
+body{background-color:#fff; color:#444; font-size:12px; line-height:1.5em}
+
+h1, h2, h3, h4, h5, h6{margin:1.5em 0 .833em; font-weight:bold; line-height:1em}
+h1, .h1{font-size:2em}
+h2, .h2{font-size:1.6em}
+h3, .h3{font-size:1.4em}
+h4, .h4{font-size:1.2em}
+h5, .h5{font-size:1.1em}
+h6, .h6{font-size:1em}
+
+p{margin:1em 0}
+small{font-size:.833em}
+em, i{font-style:italic}
+strong, b{font-weight:bold}
+code, pre{font-family:monospace}
+
+a{text-decoration:underline}
+a:hover, a:focus{text-decoration:none}
+a:hover, a:active{outline:none}
+
+hr{background-color:#fff; border:1px solid #fff; border-top:1px solid #aaa; clear:both; margin:2em 0}
+blockquote{padding:0.2em 1em 0.2em 2em; border-left:3px solid #eee}
+
+
+
+/* ======================= GENERIC CLASSES ======================= */
+
+
+/* ===== FRAMEWORK ===== */
+
+/* clearfix hack [http://j.mp/bestclearfix] */
+.clearfix:before, .clearfix:after, .clearfix > .lastcol:after, .ffluid:after, br.cb{display:block; height:0 !important; line-height:0; overflow:hidden; visibility:hidden}
+.clearfix:before, .clearfix:after{content:"."}
+.clearfix:after{clear:both}
+.clearfix, .ffluid{*zoom:1}
+
+/* Nicole Sullivan zoom-fix hack [http://bit.ly/gpXFlK] */
+.fcolholder:after, .fcolholder .lastcol:after, .ffluid:after{font-size:xx-large; content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x "}
+.fcolholder .lastcol{display:table-cell; float:none; width:auto !important; *display:block; *zoom:1; _position:relative; _left:-3px; _margin-right:-3px}
+
+
+/* -- columns -- */
+
+.col{float:left}
+.col-1_1{float:none; width:100%}
+.col-1_2, .col-2_4, .col-3_6{width:50%}
+.col-1_3, .col-2_6{width:33.33333%}
+.col-2_3, .col-4_6{width:66.66666%}
+.col-1_4{width:25%}
+.col-3_4{width:75%}
+.col-1_5{width:20%}
+.col-2_5{width:40%}
+.col-3_5{width:60%}
+.col-4_5{width:80%}
+.col-1_6{width:16.66667%}
+.col-5_6{width:83.33333%}
+
+
+/* -- image -- */
+
+/* image replacement (borrowed from HTML5 boilerplate) */
+.ir{text-indent:-999em; display:block; overflow:hidden; text-align:left; direction:ltr}
+
+/* -- floats -- */
+
+.fl{float:left; _margin-right:-3px}
+.fr{float:right; _margin-left:-3px}
+.ffluid{display:table-cell; *display:block; width:auto}
+.cr{clear:right}
+.cl{clear:left}
+.cb{clear:both}
+
+
+/* -- display -- */
+
+.hidden{display:none !important}
+.hidden, .invisible{visibility:hidden !important}
+
+
+/* -- centering -- */
+
+/* vertical centering technique [http://www.jakpsatweb.cz/css/css-vertical-center-solution.html] */
+.vcenter{/* height of .vcenter element is required */ overflow:hidden; *position:relative; display:table; *display:block}
+.vcenter .outer{display:table-cell; vertical-align:middle; width:100%; *position:absolute; *top:50%}
+.vcenter .inner{*position:relative; *top:-50%}
+
+.hcenter{/* width is required */ margin-left:auto !important; margin-right:auto !important}
+
+
+/* -- text helpers -- */
+
+.tcenter{text-align:center}
+.tleft{text-align:left}
+.tright{text-align:right}
+.tupper{text-transform:uppercase}
+.tlower{text-transform:lowercase}
+.tnormal{text-transform:none}
+.ttop{text-align:top}
+.tmiddle{text-align:middle}
+.tbottom{text-align:bottom}
+
+
+/* -- interaction helpers -- */
+
+.clickable, .btn{cursor:pointer}
+.clickable.disabled, .btn.disabled{cursor:default !important}
+
+
+/* ===== PROJECT SPECIFIC ===== */
+
+
+/* --- font-styles --- */
+
+.b{font-weight:bold}
+.em{font-style:italic}
+.big{font-size:1.166em}
+.small{font-size:.833em}
+.del{text-decoration:line-through}
+
+
+/* --- lists --- */
+
+.nav, .nav > li{padding:0; margin:0}
+.hlnav > li{float:left; margin-right:1em}
+.hrnav > li{float:right; margin-left:1em}
+
+.simpleList{padding-left:2em; margin:1em 0}
+ol.simpleList{list-style:decimal}
+ul.simpleList{list-style:disc}
+.simpleList > li{margin:.5em 0}
+.simpleList > li ul{margin:0 0 1em}
+.simpleList > dt{margin:1em 0 .2em}
+.simpleList > dd{margin:.5em 0; padding-left:2em}
+
+
+/* --- Grids --- */
+
+/* grid => update values to match project grid */
+.gridholder{margin-right:-18px; width:984px} /* width should be the same as full grid + gutter. it should be used together with .clearfix */
+.gridholder > .grid{float:left; margin-right:18px}
+/* using !important on all values to be able to use it for sizing elements besides grid columns */
+.grid-1{width:64px !important}
+.grid-2{width:146px !important}
+.grid-3{width:228px !important}
+.grid-4{width:310px !important}
+.grid-5{width:392px !important}
+.grid-6{width:474px !important}
+.grid-7{width:556px !important}
+.grid-8{width:638px !important}
+.grid-9{width:720px !important}
+.grid-10{width:802px !important}
+.grid-11{width:884px !important}
+.grid-12{width:966px !important}
+/* */
+
+/* fluid grid => update values to match project grid */
+/* it is important to note that .fgrid-[n] units doesn't match proper size when used outside of .fgridholder */
+.fgridholder{margin-right:-2.5%} /* .fgridholder should be used together with .clearfix, set negative margin as opposite value of gutter */
+.fgridholder > .grid{float:left; margin-right:2.5%}
+.fgrid-1{width:5.83333333%}
+.fgrid-2{width:14.16666667%}
+.fgrid-3{width:22.5%}
+.fgrid-4{width:30.8333333%}
+.fgrid-5{width:39.16666667%}
+.fgrid-6{width:47.5%}
+.fgrid-7{width:55.83333333%}
+.fgrid-8{width:64.16666667%}
+.fgrid-9{width:72.5%}
+.fgrid-10{width:80.8333333%}
+.fgrid-11{width:89.1666667%}
+.fgrid-12{width:97.5%}
+/* */
+
+
+/* ====================== STRUCTURE/CONTENT ====================== */
+
+#wrapper{overflow:hidden; /* overflow is important for grid. that way no need to use classes like .last, .end, .omega or wrap each row into a different container */}
+
+/* ============================ DEBUG ============================ */

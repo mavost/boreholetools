@@ -1,0 +1,1195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Code documentation &#8212; Boreholetools 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notes" href="legal.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="legal.html" title="Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Boreholetools 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="code-documentation">
+<h1>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-boreholetools">
+<span id="boreholetools-main"></span><h2>Boreholetools main<a class="headerlink" href="#module-boreholetools" title="Permalink to this headline">¶</a></h2>
+<p>boreholetools main control module</p>
+<dl class="class">
+<dt id="boreholetools.SmartFormatter">
+<em class="property">class </em><code class="descclassname">boreholetools.</code><code class="descname">SmartFormatter</code><span class="sig-paren">(</span><em>prog</em>, <em>indent_increment=2</em>, <em>max_help_position=24</em>, <em>width=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#SmartFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.SmartFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>a quick re-classing to enable RAW help descriptions</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.str2bool">
+<code class="descclassname">boreholetools.</code><code class="descname">str2bool</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#str2bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.str2bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>a quick reader for boolean type argument strings</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.validintervalrange">
+<code class="descclassname">boreholetools.</code><code class="descname">validintervalrange</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#validintervalrange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.validintervalrange" title="Permalink to this definition">¶</a></dt>
+<dd><p>a quick reader for specific float type argument strings</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.parse">
+<code class="descclassname">boreholetools.</code><code class="descname">parse</code><span class="sig-paren">(</span><em>manualargs=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>parser for defining and reading key words from command line</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.getstatickeywords">
+<code class="descclassname">boreholetools.</code><code class="descname">getstatickeywords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#getstatickeywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.getstatickeywords" title="Permalink to this definition">¶</a></dt>
+<dd><p>for clarity and non-script usage define defaults for all valid keywords</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.buildwelldb">
+<code class="descclassname">boreholetools.</code><code class="descname">buildwelldb</code><span class="sig-paren">(</span><em>kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#buildwelldb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.buildwelldb" title="Permalink to this definition">¶</a></dt>
+<dd><p>pop and prepare parameter dict and build well db</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.buildmarkerdb">
+<code class="descclassname">boreholetools.</code><code class="descname">buildmarkerdb</code><span class="sig-paren">(</span><em>welldb</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#buildmarkerdb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.buildmarkerdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>pop and prepare parameter dict and build marker db</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>welldb</strong> – </li>
+<li><strong>kwargs</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">WellMarkerLoading object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="boreholetools.main">
+<code class="descclassname">boreholetools.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boreholetools.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boreholetools.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>main function is a wrapper for parsing keywords and executing main functions</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-modules.welldatabase">
+<span id="bht-welldatabase"></span><h2>BHT welldatabase<a class="headerlink" href="#module-modules.welldatabase" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="modules.welldatabase.Well">
+<em class="property">class </em><code class="descclassname">modules.welldatabase.</code><code class="descname">Well</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Well object holds shared horizontal and vertical length units and individual well properties:</dt>
+<dd>WELL NAME, ORIGIN, GEOMETRY (DEVIATION SURVEY), WELL MARKERS</dd>
+</dl>
+<dl class="attribute">
+<dt id="modules.welldatabase.Well.DEPTHUNIT">
+<code class="descname">DEPTHUNIT</code><em class="property"> = 'ft'</em><a class="headerlink" href="#modules.welldatabase.Well.DEPTHUNIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modules.welldatabase.Well.SURFUNIT">
+<code class="descname">SURFUNIT</code><em class="property"> = 'ft'</em><a class="headerlink" href="#modules.welldatabase.Well.SURFUNIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>define static variables and helper functions to force consistent length handling across well data</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.welldatabase.Well.depth_to_metric">
+<em class="property">static </em><code class="descname">depth_to_metric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.depth_to_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.depth_to_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function to set depth to metric length unit (meters)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.welldatabase.Well.depth_to_imperial">
+<em class="property">static </em><code class="descname">depth_to_imperial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.depth_to_imperial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.depth_to_imperial" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function to set depth to imperial length unit (feet)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.welldatabase.Well.surf_to_metric">
+<em class="property">static </em><code class="descname">surf_to_metric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.surf_to_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.surf_to_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function to set surface units to metric length units (meters)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.welldatabase.Well.surf_to_imperial">
+<em class="property">static </em><code class="descname">surf_to_imperial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.surf_to_imperial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.surf_to_imperial" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function to set surface units to imperial length units (feet)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="modules.welldatabase.Well.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = False</em><a class="headerlink" href="#modules.welldatabase.Well.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>define static variable for verbosity</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.welldatabase.Well.switch_verbose">
+<em class="property">static </em><code class="descname">switch_verbose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.switch_verbose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.switch_verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function to switch on/off verbose output to console</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.welldatabase.Well.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#Well.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.Well.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>constructor initializes all parameters to generate a well object containing</dt>
+<dd>WELL NAME, ORIGIN, GEOMETRY (DEVIATION SURVEY)</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">WELL MARKERS attribute is empty until <a class="reference internal" href="#modules.welldatabase.WellMarkerLoading" title="modules.welldatabase.WellMarkerLoading"><code class="xref py py-class docutils literal notranslate"><span class="pre">WellMarkerLoading</span></code></a> is instantiated</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>**kwargs</strong> – key/value list required to set up a well instance</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last">
+<li><p class="first"><em>datadir</em> (<code class="docutils literal notranslate"><span class="pre">string</span></code>) –
+path to data directory</p>
+</li>
+<li><p class="first"><em>filename_in</em> (<code class="docutils literal notranslate"><span class="pre">string</span></code>) –
+deviation survey file</p>
+</li>
+<li><p class="first"><em>wellname</em> (<code class="docutils literal notranslate"><span class="pre">string</span></code>) –
+unique well name</p>
+</li>
+<li><p class="first"><em>origin</em> ((<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>)) –
+Cartesian location of well head (KB), Default <code class="docutils literal notranslate"><span class="pre">(0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0)</span></code></p>
+</li>
+<li><p class="first"><em>headerlines_in</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) –
+number of header lines in deviation survey file</p>
+</li>
+<li><p class="first"><em>columns_in</em> ((<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>)) –
+default values for relevant data columns in deviation file (MD, INCL, AZIM), Default <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code></p>
+</li>
+<li><p class="first">key/values handed to <a class="reference internal" href="#modules.boreholemath.TransformBoreHoleSurvey" title="modules.boreholemath.TransformBoreHoleSurvey"><code class="xref py py-class docutils literal notranslate"><span class="pre">modules.boreholemath.TransformBoreHoleSurvey</span></code></a> during GEOMETRY loading</p>
+<blockquote>
+<div><ul class="simple">
+<li><em>mode</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) –
+deviation file reading / conversion / interpolation mode, Default <code class="docutils literal notranslate"><span class="pre">0</span></code>: no output</li>
+<li><em>interval</em> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) –
+interpolation interval along MD, Default <code class="docutils literal notranslate"><span class="pre">50.0</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.welldatabase.WellMarkerLoading">
+<em class="property">class </em><code class="descclassname">modules.welldatabase.</code><code class="descname">WellMarkerLoading</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellMarkerLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellMarkerLoading" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="modules.welldatabase.WellMarkerLoading.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellMarkerLoading.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellMarkerLoading.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.welldatabase.WellMarkerLoading.load_strat_markers">
+<code class="descname">load_strat_markers</code><span class="sig-paren">(</span><em>markerfile</em>, <em>headerlines=1</em>, <em>columns=(1</em>, <em>2</em>, <em>3</em>, <em>4</em>, <em>5)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellMarkerLoading.load_strat_markers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellMarkerLoading.load_strat_markers" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>markerfile</strong> – </li>
+<li><strong>headerlines</strong> – </li>
+<li><strong>columns</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.welldatabase.WellMarkerLoading.print_strat_markers">
+<code class="descname">print_strat_markers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellMarkerLoading.print_strat_markers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellMarkerLoading.print_strat_markers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.welldatabase.WellDatabase">
+<em class="property">class </em><code class="descclassname">modules.welldatabase.</code><code class="descname">WellDatabase</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>WellDatabase object factory template creates well instances based on a user supplied well spreadsheet
+and corresponding supporting files</p>
+<dl class="method">
+<dt id="modules.welldatabase.WellDatabase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellDatabase.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellDatabase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets class parameters based on external keywords and / or robust defaults</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – unpacked keyword dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.welldatabase.WellDatabase.get_wells_sorted">
+<code class="descname">get_wells_sorted</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/welldatabase.html#WellDatabase.get_wells_sorted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.welldatabase.WellDatabase.get_wells_sorted" title="Permalink to this definition">¶</a></dt>
+<dd><p>helper function to return a key-sorted (WELL NAME) dictionary for reporting</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary of well instances keyed by WELL NAME</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-modules.markermath">
+<span id="bht-markermath"></span><h2>BHT markermath<a class="headerlink" href="#module-modules.markermath" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="modules.markermath.Stratigraphy">
+<em class="property">class </em><code class="descclassname">modules.markermath.</code><code class="descname">Stratigraphy</code><a class="reference internal" href="_modules/modules/markermath.html#Stratigraphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.Stratigraphy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="modules.markermath.Stratigraphy.STRAT">
+<code class="descname">STRAT</code><em class="property"> = {'CRET': 'Cretaceous', 'JUR': 'Jurassic', 'NONE': 'None', 'REF': 'Reference Level', 'TERT': 'Tertiary', 'TRIA': 'Triassic'}</em><a class="headerlink" href="#modules.markermath.Stratigraphy.STRAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modules.markermath.Stratigraphy.STRATORDER">
+<code class="descname">STRATORDER</code><em class="property"> = ('REF', 'TERT', 'CRET', 'JUR', 'TRIA')</em><a class="headerlink" href="#modules.markermath.Stratigraphy.STRATORDER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.markermath.Stratigraphy.print_strat">
+<em class="property">static </em><code class="descname">print_strat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#Stratigraphy.print_strat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.Stratigraphy.print_strat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.markermath.Stratigraphy.load_strat_definition">
+<em class="property">static </em><code class="descname">load_strat_definition</code><span class="sig-paren">(</span><em>datadir</em>, <em>stratdeffile</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#Stratigraphy.load_strat_definition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.Stratigraphy.load_strat_definition" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>datadir</strong> – </li>
+<li><strong>stratdeffile</strong> – </li>
+<li><strong>verbose</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.markermath.Stratigraphy.load_strat_order">
+<em class="property">static </em><code class="descname">load_strat_order</code><span class="sig-paren">(</span><em>datadir</em>, <em>stratorder_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#Stratigraphy.load_strat_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.Stratigraphy.load_strat_order" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>datadir</strong> – </li>
+<li><strong>stratorder_file</strong> – </li>
+<li><strong>verbose</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.markermath.WellMarker">
+<em class="property">class </em><code class="descclassname">modules.markermath.</code><code class="descname">WellMarker</code><span class="sig-paren">(</span><em>wmtype='UNKN'</em>, <em>strat='NONE'</em>, <em>md=0.0</em>, <em>dip=None</em>, <em>dazim=None</em>, <em>wellname='UNKNOWN'</em>, <em>wellgeometry=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#WellMarker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.WellMarker" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="modules.markermath.WellMarker.TYPE">
+<code class="descname">TYPE</code><em class="property"> = {'FLT': 'Fault', 'LITH': 'Lithology', 'STRT': 'Stratigraphy', 'TECH': 'Technical', 'UNKN': 'Unknown'}</em><a class="headerlink" href="#modules.markermath.WellMarker.TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="modules.markermath.WellMarker.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>wmtype='UNKN'</em>, <em>strat='NONE'</em>, <em>md=0.0</em>, <em>dip=None</em>, <em>dazim=None</em>, <em>wellname='UNKNOWN'</em>, <em>wellgeometry=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#WellMarker.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.WellMarker.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wmtype</strong> – </li>
+<li><strong>strat</strong> – </li>
+<li><strong>md</strong> – </li>
+<li><strong>dip</strong> – </li>
+<li><strong>dazim</strong> – </li>
+<li><strong>wellname</strong> – </li>
+<li><strong>wellgeometry</strong> – </li>
+<li><strong>verbose</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.markermath.WellMarker.out_short">
+<code class="descname">out_short</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/markermath.html#WellMarker.out_short"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.markermath.WellMarker.out_short" title="Permalink to this definition">¶</a></dt>
+<dd><p>short whoami operator</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-modules.boreholemath">
+<span id="bht-boreholemath"></span><h2>BHT boreholemath<a class="headerlink" href="#module-modules.boreholemath" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="modules.boreholemath.CartPoint">
+<em class="property">class </em><code class="descclassname">modules.boreholemath.</code><code class="descname">CartPoint</code><span class="sig-paren">(</span><em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CartPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CartPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>a simple point class for Cartesian coordinates</p>
+<dl class="method">
+<dt id="modules.boreholemath.CartPoint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>x=0.0</em>, <em>y=0.0</em>, <em>z=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CartPoint.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CartPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize point class using three vector components</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – X-component initializer</li>
+<li><strong>y</strong> – Y-component initializer</li>
+<li><strong>z</strong> – Z-component initializer</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.CartPoint.scale_xy">
+<code class="descname">scale_xy</code><span class="sig-paren">(</span><em>scaler=0.3048</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CartPoint.scale_xy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CartPoint.scale_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>scale horizontal components of a point differently than vertical in case of mixed length unit output</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scaler</strong> – scaling factor defaulting to ‘ft’ to ‘meter’ constant</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.CartPoint.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>scaler=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CartPoint.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CartPoint.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>scale all three components of a vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scaler</strong> – scaling factor defaulting to identity</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.CartPoint.output_list">
+<code class="descname">output_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CartPoint.output_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CartPoint.output_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert three components for exporting to CSV file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">three floats (X,Y,Z) formatted list of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.boreholemath.CLPoint">
+<em class="property">class </em><code class="descclassname">modules.boreholemath.</code><code class="descname">CLPoint</code><span class="sig-paren">(</span><em>md=0.0</em>, <em>incl=0.0</em>, <em>azim=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CLPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CLPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>point class for curvelinear coordinates and associated tangential unit vector</p>
+<dl class="method">
+<dt id="modules.boreholemath.CLPoint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>md=0.0</em>, <em>incl=0.0</em>, <em>azim=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CLPoint.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CLPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>for given spherical coordinates set measured depth and angles and calculate a corresponding
+tangential unit vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>md</strong> – measured depth of point in length units along borehole from kelly bushing (KB)</li>
+<li><strong>incl</strong> – borehole inclination (theta) measured from vertical at point [deg]</li>
+<li><strong>azim</strong> – borehole azimuth (phi) measured from grid North at point [deg]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.CLPoint.update_angles">
+<code class="descname">update_angles</code><span class="sig-paren">(</span><em>tangn</em>, <em>tange</em>, <em>tangv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CLPoint.update_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CLPoint.update_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>back-calculate new angles from updated tangential vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tangn</strong> – North-component of tangential vector</li>
+<li><strong>tange</strong> – East-component of tangential vector</li>
+<li><strong>tangv</strong> – Vertical / down-component of tangential vector</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.CLPoint.output_list">
+<code class="descname">output_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#CLPoint.output_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.CLPoint.output_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert three components for exporting to CSV file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">three floats (MD[length], INCL[deg], AZIM[deg]) formatted list of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.boreholemath.MinCurvPair">
+<em class="property">class </em><code class="descclassname">modules.boreholemath.</code><code class="descname">MinCurvPair</code><span class="sig-paren">(</span><em>pointa</em>, <em>pointb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>pointa</em>, <em>pointb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pointa</strong> – </li>
+<li><strong>pointb</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.calc_subtended_alpha">
+<code class="descname">calc_subtended_alpha</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.calc_subtended_alpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.calc_subtended_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.calc_dog_leg_severity">
+<code class="descname">calc_dog_leg_severity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.calc_dog_leg_severity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.calc_dog_leg_severity" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.calc_shape_factor">
+<code class="descname">calc_shape_factor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.calc_shape_factor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.calc_shape_factor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.calc_interpolation_md">
+<code class="descname">calc_interpolation_md</code><span class="sig-paren">(</span><em>depth</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.calc_interpolation_md"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.calc_interpolation_md" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>depth</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.MinCurvPair.calc_tangential_factor">
+<code class="descname">calc_tangential_factor</code><span class="sig-paren">(</span><em>alphastarcomp</em>, <em>fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#MinCurvPair.calc_tangential_factor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.MinCurvPair.calc_tangential_factor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>alphastarcomp</strong> – </li>
+<li><strong>fraction</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey">
+<em class="property">class </em><code class="descclassname">modules.boreholemath.</code><code class="descname">TransformBoreHoleSurvey</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets class parameters based on external keywords and / or robust defaults</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – unpacked keyword dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.generate_output">
+<code class="descname">generate_output</code><span class="sig-paren">(</span><em>mode=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.generate_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.generate_output" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mode</strong> – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.setup_min_curv_pairs">
+<code class="descname">setup_min_curv_pairs</code><span class="sig-paren">(</span><em>clpoints</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.setup_min_curv_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.setup_min_curv_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>build list of curve pairs and calculate min. curvature parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clpoints</strong> – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.build_cartesian_points">
+<code class="descname">build_cartesian_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.build_cartesian_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.build_cartesian_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.calculate_cartesian_deltas">
+<code class="descname">calculate_cartesian_deltas</code><span class="sig-paren">(</span><em>pair</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.calculate_cartesian_deltas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.calculate_cartesian_deltas" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pair</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.setup_cl_points">
+<code class="descname">setup_cl_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.setup_cl_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.setup_cl_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.interpolate_cl_points">
+<code class="descname">interpolate_cl_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.interpolate_cl_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.interpolate_cl_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="modules.boreholemath.TransformBoreHoleSurvey.calculate_cl_point">
+<code class="descname">calculate_cl_point</code><span class="sig-paren">(</span><em>mdepth</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/boreholemath.html#TransformBoreHoleSurvey.calculate_cl_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.boreholemath.TransformBoreHoleSurvey.calculate_cl_point" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mdepth</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-modules.dipmath">
+<span id="bht-dipmath"></span><h2>BHT dipmath<a class="headerlink" href="#module-modules.dipmath" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="modules.dipmath.DipPoint">
+<em class="property">class </em><code class="descclassname">modules.dipmath.</code><code class="descname">DipPoint</code><span class="sig-paren">(</span><em>dip=0.0</em>, <em>dazim=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>provides dip and dip azimuth properties to a point including a corresponding
+tangential vector and its manipulation</p>
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipPoint.get_matrix_x">
+<em class="property">static </em><code class="descname">get_matrix_x</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.get_matrix_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.get_matrix_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along X axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipPoint.get_matrix_y">
+<em class="property">static </em><code class="descname">get_matrix_y</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.get_matrix_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.get_matrix_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along Y axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipPoint.get_matrix_z">
+<em class="property">static </em><code class="descname">get_matrix_z</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.get_matrix_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.get_matrix_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along Z axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dip=0.0</em>, <em>dazim=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructor for dip / dip azimuth instance and corresponding unit vector pointing in direction
+of maximum falling dip</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dip</strong> – dip of geological bed from horizontal in falling direction (grad)</li>
+<li><strong>dazim</strong> – dip azimuth of geological bed measured clockwise from grid north (grad)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint._rotate">
+<code class="descname">_rotate</code><span class="sig-paren">(</span><em>matrix_func</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint._rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint._rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>helper function to actually perform a functional-based rotation of the tangential vector by given angle.
+Note, that this function does not change the instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>matrix_func</strong> – functional object - either X,Y,Z rotation matrix</li>
+<li><strong>angle</strong> – angle of rotation (grad)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint._update_angles">
+<code class="descname">_update_angles</code><span class="sig-paren">(</span><em>newdips</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint._update_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint._update_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>back-calculate dip and dip azimuth from a tangential vector changed by rotation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newdips</strong> – list(3) of flt corresponding to the three-component tangential vector</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint.rotate_x">
+<code class="descname">rotate_x</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.rotate_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.rotate_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by X axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint.rotate_y">
+<code class="descname">rotate_y</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.rotate_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.rotate_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by Y axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipPoint.rotate_z">
+<code class="descname">rotate_z</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipPoint.rotate_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipPoint.rotate_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by Z axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="modules.dipmath.DipMarker">
+<em class="property">class </em><code class="descclassname">modules.dipmath.</code><code class="descname">DipMarker</code><span class="sig-paren">(</span><em>md</em>, <em>dip=None</em>, <em>dazim=None</em>, <em>wellgeometry_in=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipMarker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipMarker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.dipmath.DipPoint" title="modules.dipmath.DipPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">modules.dipmath.DipPoint</span></code></a></p>
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>md</em>, <em>dip=None</em>, <em>dazim=None</em>, <em>wellgeometry_in=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipMarker.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipMarker.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>md</strong> – </li>
+<li><strong>dip</strong> – </li>
+<li><strong>dazim</strong> – </li>
+<li><strong>wellgeometry_in</strong> – </li>
+<li><strong>verbose</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.output_list">
+<code class="descname">output_list</code><span class="sig-paren">(</span><em>mymode=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipMarker.output_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipMarker.output_list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mymode</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.reorient_dip">
+<code class="descname">reorient_dip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/dipmath.html#DipMarker.reorient_dip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.dipmath.DipMarker.reorient_dip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker._rotate">
+<code class="descname">_rotate</code><span class="sig-paren">(</span><em>matrix_func</em>, <em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker._rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>helper function to actually perform a functional-based rotation of the tangential vector by given angle.
+Note, that this function does not change the instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>matrix_func</strong> – functional object - either X,Y,Z rotation matrix</li>
+<li><strong>angle</strong> – angle of rotation (grad)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker._update_angles">
+<code class="descname">_update_angles</code><span class="sig-paren">(</span><em>newdips</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker._update_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>back-calculate dip and dip azimuth from a tangential vector changed by rotation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newdips</strong> – list(3) of flt corresponding to the three-component tangential vector</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipMarker.get_matrix_x">
+<em class="property">static </em><code class="descname">get_matrix_x</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.get_matrix_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along X axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipMarker.get_matrix_y">
+<em class="property">static </em><code class="descname">get_matrix_y</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.get_matrix_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along Y axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="modules.dipmath.DipMarker.get_matrix_z">
+<em class="property">static </em><code class="descname">get_matrix_z</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.get_matrix_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>static function returns a matrix rotation by angle along Z axis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – rotation angle (radian)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3x3 list of flt</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.rotate_x">
+<code class="descname">rotate_x</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.rotate_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by X axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.rotate_y">
+<code class="descname">rotate_y</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.rotate_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by Y axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.dipmath.DipMarker.rotate_z">
+<code class="descname">rotate_z</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#modules.dipmath.DipMarker.rotate_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle to perform a rotation of bed dip instance by Z axis using angle and updating the dip / dip azimuth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – angle of rotation (grad)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/rotY.png"><img alt="rotation along Y axis" src="_images/rotY.png" style="width: 222.0px; height: 263.25px;" /></a>
+<p class="caption"><span class="caption-text">Correcting a geological marker <strong>dip</strong> for borehole <em>inclination</em> by rotating along the Cartesian Y axis.</span></p>
+</div>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/rotZ.png"><img alt="rotation along Z axis" src="_images/rotZ.png" style="width: 193.5px; height: 240.0px;" /></a>
+<p class="caption"><span class="caption-text">Correcting a geological marker <strong>dip azimuth</strong> for borehole <em>azimuth</em> by rotating along the Cartesian Z axis.</span></p>
+</div>
+</div>
+<div class="section" id="module-modules.fileio">
+<span id="bht-fileio"></span><h2>BHT fileio<a class="headerlink" href="#module-modules.fileio" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="modules.fileio.BHReaderWriter">
+<em class="property">class </em><code class="descclassname">modules.fileio.</code><code class="descname">BHReaderWriter</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/fileio.html#BHReaderWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.fileio.BHReaderWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class based on the CSV (comma-separated values) module reader/writer which adds functionality to more
+easily import borehole-related data</p>
+<dl class="method">
+<dt id="modules.fileio.BHReaderWriter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/fileio.html#BHReaderWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.fileio.BHReaderWriter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructor initializes main input/output parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – keywords to allow fairly flexible file / data access and writing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.fileio.BHReaderWriter.read_head">
+<code class="descname">read_head</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/fileio.html#BHReaderWriter.read_head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.fileio.BHReaderWriter.read_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>open an CSV file for reading and return a number of header lines which usually define content of
+its data columns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of str containing the header lines (def: list of one line)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.fileio.BHReaderWriter.read_data">
+<code class="descname">read_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/fileio.html#BHReaderWriter.read_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.fileio.BHReaderWriter.read_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>open an CSV file for reading and return data columns in the order as specified by self.columns tuple
+and row by row</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of list of str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="modules.fileio.BHReaderWriter.write_data">
+<code class="descname">write_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/fileio.html#BHReaderWriter.write_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.fileio.BHReaderWriter.write_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>open an CSV file for writing and compose it based on headerlines and a data field</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Code documentation</a><ul>
+<li><a class="reference internal" href="#module-boreholetools">Boreholetools main</a></li>
+<li><a class="reference internal" href="#module-modules.welldatabase">BHT welldatabase</a></li>
+<li><a class="reference internal" href="#module-modules.markermath">BHT markermath</a></li>
+<li><a class="reference internal" href="#module-modules.boreholemath">BHT boreholemath</a></li>
+<li><a class="reference internal" href="#module-modules.dipmath">BHT dipmath</a></li>
+<li><a class="reference internal" href="#module-modules.fileio">BHT fileio</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="previous chapter">Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="legal.html"
+                        title="next chapter">Notes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/documentation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="legal.html" title="Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Boreholetools 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Markus von Steht.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

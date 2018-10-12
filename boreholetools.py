@@ -17,8 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'modules'))
 print(sys.path)
 
 try:
-    from modules.welldatabase import WellDatabase
-    from modules.markermath import WellMarkerLoading
+    from modules.welldatabase import WellDatabase, WellMarkerLoading
     from modules.boreholemath import TransformBoreHoleSurvey
     from modules.dipmath import DipPoint, DipMarker
 except ImportError:
@@ -58,7 +57,7 @@ def validintervalrange(v):
 def parse(manualargs=None):
     """ parser for defining and reading key words from command line"""
     debug = False
-    TWIDTH = 79                               # terminal width excluding EOL
+    terminal = 79                               # terminal width excluding EOL
     parser = argparse.ArgumentParser(formatter_class=SmartFormatter)
     # define keywords
     # general section
@@ -120,9 +119,9 @@ def parse(manualargs=None):
         args = parser.parse_args(manualargs)
         # display resulting Namespace object
         if debug:
-            print(TWIDTH*'=')
+            print(terminal*'=')
             print('Parsed namespace:', args)
-            print(TWIDTH*'=')
+            print(terminal*'=')
             print('Parsed dict:', vars(args))
         # return keywords in Namespace object as a dictionary
         return vars(args)
@@ -140,27 +139,41 @@ def getstatickeywords():
     """ for clarity and non-script usage define defaults for all valid keywords"""
     statargs = dict()
     # general section
-    statargs['datadir'] = '.\\data'                      # STR: path to data directory 
-    statargs['depthunit'] = 'ft'                      # STR('ft', 'm'): input and output unit for vertical length (Z)
-    statargs['surfaceunits'] = 'ft'                   # STR('ft', 'm'): input and output units for horizontal lengths (X,Y)
-    statargs['verbose'] = False                       # BOOL: verbose / debug output
+    # STR: path to data directory
+    statargs['datadir'] = '.\\data'
+    # STR('ft', 'm'): input and output unit for vertical length (Z)
+    statargs['depthunit'] = 'ft'
+    # STR('ft', 'm'): input and output units for horizontal lengths (X,Y)
+    statargs['surfaceunits'] = 'ft'
+    # BOOL: verbose / debug output
+    statargs['verbose'] = False
     # well database section
-    statargs['wdbfile'] = 'sample-wellheads.txt'      # STR: CSV file containing well name, well head origin, and respective filename for directional survey
-    statargs['wdbfilehd'] = 1                         # INT: header lines to skip in well head file
-    statargs['wdbfilecol'] = (1, 2, 3, 4, 5)          # TUP(5 * INT): indeces of rows containing WELL NAME, X, Y, KB, FILENAME
-    statargs['wdbmode'] = 2                              # INT: specifies output mode for directional survey file
-                                                          #      0: no output
-                                                          #      1: output original survey as Cartesian X, Y, Z
-                                                          #      2: output interpolated survey as MD, INCL, AZIM
-                                                          #      3: output interpolated survey as Cartesian X, Y, Z
-    statargs['wdbinterval'] = 50.0                    # FLOAT: interpolation interval along MD w.r.t. output mode >=.01 
+    # STR: CSV file containing well name, well head origin, and respective filename for directional survey
+    statargs['wdbfile'] = 'sample-wellheads.txt'
+    # INT: header lines to skip in well head file
+    statargs['wdbfilehd'] = 1
+    # TUP(5 * INT): indeces of rows containing WELL NAME, X, Y, KB, FILENAME
+    statargs['wdbfilecol'] = (1, 2, 3, 4, 5)
+    # INT: specifies output mode for directional survey file
+    #      0: no output
+    #      1: output original survey as Cartesian X, Y, Z
+    #      2: output interpolated survey as MD, INCL, AZIM
+    #      3: output interpolated survey as Cartesian X, Y, Z
+    statargs['wdbmode'] = 2
+    # FLOAT: interpolation interval along MD w.r.t. output mode >=.01
+    statargs['wdbinterval'] = 50.0
     # well marker section
-    statargs['mrkfile'] = 'sample-markers.txt'        # STR: CSV file containing well name, marker code, depth, and optional dip orientations
-    statargs['mrkfilehd'] = 1                         # INT: header lines to skip in marker file
-    statargs['mrkfilecol'] = (1, 2, 3, 4, 5)          # TUP(5 * INT): indeces of rows containing WELL NAME, MARKER CODE, MD [length], DIP(opt) [deg], DAZIM(opt) [deg]
+    # STR: CSV file containing well name, marker code, depth, and optional dip orientations
+    statargs['mrkfile'] = 'sample-markers.txt'
+    # INT: header lines to skip in marker file
+    statargs['mrkfilehd'] = 1
+    # TUP(5 * INT): indeces of rows containing WELL NAME, MARKER CODE, MD [length], DIP(opt) [deg], DAZIM(opt) [deg]
+    statargs['mrkfilecol'] = (1, 2, 3, 4, 5)
     # stratigraphy section
-    statargs['stratdeffile'] = 'sample-stratdef.txt'        # STR: fixed-format CSV file containing marker code, marker name and optional data
-    statargs['stratordfile'] = 'sample-stratorder.txt'      # STR: fixed-format CSV file containing white list of valid markers in order of stratigraphic age
+    # STR: fixed-format CSV file containing marker code, marker name and optional data
+    statargs['stratdeffile'] = 'sample-stratdef.txt'
+    # STR: fixed-format CSV file containing white list of valid markers in order of stratigraphic age
+    statargs['stratordfile'] = 'sample-stratorder.txt'
     return statargs
 
 
@@ -187,7 +200,12 @@ def buildwelldb(kwargs):
 
 
 def buildmarkerdb(welldb, kwargs):
-    """ pop and prepare parameter dict and build marker db"""
+    """ pop and prepare parameter dict and build marker db
+
+    :param welldb:
+    :param kwargs:
+    :return: WellMarkerLoading object
+    """
     debug = False
     general = ['datadir', 'verbose']
     specific = {'filename_in': 'mrkfile', 'headerlines_in': 'mrkfilehd', 'columns_in': 'mrkfilecol',
@@ -214,7 +232,7 @@ def main():
     """
     main function is a wrapper for parsing keywords and executing main functions
     """
-    TWIDTH = 79                               # terminal width excluding EOL
+    terminal = 79                               # terminal width excluding EOL
     debug = False
     testing = False
     kwargs = None
@@ -223,45 +241,44 @@ def main():
     # quick test manual arguments to simulate command line
     # kwargs = parse(['--mode', '1', '--verbose', '1'])
     # normal parsing of arguments, btw. program fails with unknown/bad parameters
-    try:
-        kwargs = parse()
+    #try:
+    #    kwargs = parse()
     # parser will throw sys.exit() internally and externally,
     # we stop execution, then - 'finally' not needed at this stage
-    except SystemExit:
-        os._exit(1)
-    # kwargs = None
+    #except SystemExit:
+    #    os._exit(1)
     # in production the following block ist disabled
     # in order to only allow access by command line and file data
-    # if kwargs == None:
-    #    print('Warning: Parser completely failed - using internal defaults')
-    #    kwargs = getstatickeywords()
-    print(TWIDTH*'=')
+    if kwargs is None:
+        print('Warning: Parser completely failed - using internal defaults')
+        kwargs = getstatickeywords()
+    print(terminal*'=')
     if debug:
         print('Args before generating WDB:\n', kwargs)
-        print(TWIDTH*'=')
+        print(terminal*'=')
     welldb = buildwelldb(kwargs)
     if debug:
         print(welldb)
-        print(TWIDTH*'=')
+        print(terminal*'=')
         print('Args before generating MDB:\n', kwargs)
-        print(TWIDTH*'=')
+        print(terminal*'=')
     markerdb = buildmarkerdb(welldb, kwargs)
     if debug:
-        markerdb.printStratMarkers()
-        print(TWIDTH*'=')
+        markerdb.print_strat_markers()
+        print(terminal*'=')
         print('Args after generating MDB:\n', kwargs)
-        print(TWIDTH*'=')
+        print(terminal*'=')
     if testing:
-        print(TWIDTH*'=')
-        print('boreholetools testing'.ljust(TWIDTH, '-'))
-        print(TWIDTH*'=')
+        print(terminal*'=')
+        print('boreholetools testing'.ljust(terminal, '-'))
+        print(terminal*'=')
         welldb = WellDatabase(**kwargs)
         transform = TransformBoreHoleSurvey(datadir='data', filename_in='sample-borehole.txt', mode=2, verbose=False)
         point = DipPoint(45, 0)
         dmarker = DipMarker(5000, 45, 10, transform)
-    print(TWIDTH*'=')
+    print(terminal*'=')
     print('run completed without errors...')
-    print(TWIDTH*'=')
+    print(terminal*'=')
     return 0
 
 

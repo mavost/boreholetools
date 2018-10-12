@@ -1,0 +1,242 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>modules.markermath &#8212; Boreholetools 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for modules.markermath</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python #Linux shebang plus chmod to make executable</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># FILENAME: markermath.py</span>
+<span class="c1"># VERSION: 1.0 - Python 3.6</span>
+<span class="c1"># PURPOSE:</span>
+<span class="c1"># AUTHOR: MVS</span>
+<span class="c1"># LAST CHANGE: 04/09/2018</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># tools for manipulating well marker interpretation files</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">modules</span> <span class="k">import</span> <span class="n">dipmath</span>
+<span class="kn">from</span> <span class="nn">modules</span> <span class="k">import</span> <span class="n">fileio</span>
+
+
+<div class="viewcode-block" id="Stratigraphy"><a class="viewcode-back" href="../../documentation.html#modules.markermath.Stratigraphy">[docs]</a><span class="k">class</span> <span class="nc">Stratigraphy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">STRAT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;NONE&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;REF&#39;</span><span class="p">:</span> <span class="s1">&#39;Reference Level&#39;</span><span class="p">,</span> <span class="s1">&#39;TERT&#39;</span><span class="p">:</span> <span class="s1">&#39;Tertiary&#39;</span><span class="p">,</span> <span class="s1">&#39;CRET&#39;</span><span class="p">:</span> <span class="s1">&#39;Cretaceous&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;JUR&#39;</span><span class="p">:</span> <span class="s1">&#39;Jurassic&#39;</span><span class="p">,</span> <span class="s1">&#39;TRIA&#39;</span><span class="p">:</span> <span class="s1">&#39;Triassic&#39;</span><span class="p">}</span>
+    <span class="n">STRATORDER</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;REF&#39;</span><span class="p">,</span> <span class="s1">&#39;TERT&#39;</span><span class="p">,</span> <span class="s1">&#39;CRET&#39;</span><span class="p">,</span> <span class="s1">&#39;JUR&#39;</span><span class="p">,</span> <span class="s1">&#39;TRIA&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Stratigraphy.print_strat"><a class="viewcode-back" href="../../documentation.html#modules.markermath.Stratigraphy.print_strat">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">print_strat</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stratigraphy used in calculations:&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRATORDER</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Boundary </span><span class="si">{0:02d}</span><span class="s1">:</span><span class="si">{1:&gt;6.5}</span><span class="s1">-</span><span class="si">{2:20.19}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="n">item</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Stratigraphy keys in definition and order files don</span><span class="se">\&#39;</span><span class="s1">t match&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Stratigraphy.load_strat_definition"><a class="viewcode-back" href="../../documentation.html#modules.markermath.Stratigraphy.load_strat_definition">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load_strat_definition</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="n">stratdeffile</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param datadir:</span>
+<span class="sd">        :param stratdeffile:</span>
+<span class="sd">        :param verbose:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opening stratigraphy definition file:&#39;</span><span class="p">)</span>
+        <span class="n">stratargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="n">datadir</span><span class="p">,</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">stratdeffile</span><span class="p">,</span>
+                     <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="s1">&#39;NONE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
+            <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="s1">&#39;REF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Reference Level&#39;</span>
+            <span class="n">stratdefreader</span> <span class="o">=</span> <span class="n">fileio</span><span class="o">.</span><span class="n">BHReaderWriter</span><span class="p">(</span><span class="o">**</span><span class="n">stratargs</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">stratdefreader</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: File not found during loading of stratigraphy definition data&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stratigraphy definition updated&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stratigraphy.load_strat_order"><a class="viewcode-back" href="../../documentation.html#modules.markermath.Stratigraphy.load_strat_order">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load_strat_order</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="n">stratorder_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param datadir:</span>
+<span class="sd">        :param stratorder_file:</span>
+<span class="sd">        :param verbose:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opening stratigraphy order/selection file:&#39;</span><span class="p">)</span>
+        <span class="n">stratargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="n">datadir</span><span class="p">,</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">stratorder_file</span><span class="p">,</span>
+                     <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)}</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">stratorderreader</span> <span class="o">=</span> <span class="n">fileio</span><span class="o">.</span><span class="n">BHReaderWriter</span><span class="p">(</span><span class="o">**</span><span class="n">stratargs</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">stratorderreader</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+            <span class="n">seen</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;REF&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;REF&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">seen</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRATORDER</span> <span class="o">=</span> <span class="n">result</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRATORDER</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: File not found during loading of stratigraphy order data&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stratigraphy order/selection updated&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="WellMarker"><a class="viewcode-back" href="../../documentation.html#modules.markermath.WellMarker">[docs]</a><span class="k">class</span> <span class="nc">WellMarker</span><span class="p">(</span><span class="n">dipmath</span><span class="o">.</span><span class="n">DipMarker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TYPE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UNKN&#39;</span><span class="p">:</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;STRT&#39;</span><span class="p">:</span> <span class="s1">&#39;Stratigraphy&#39;</span><span class="p">,</span> <span class="s1">&#39;LITH&#39;</span><span class="p">:</span> <span class="s1">&#39;Lithology&#39;</span><span class="p">,</span> <span class="s1">&#39;FLT&#39;</span><span class="p">:</span> <span class="s1">&#39;Fault&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TECH&#39;</span><span class="p">:</span> <span class="s1">&#39;Technical&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="WellMarker.__init__"><a class="viewcode-back" href="../../documentation.html#modules.markermath.WellMarker.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wmtype</span><span class="o">=</span><span class="s1">&#39;UNKN&#39;</span><span class="p">,</span> <span class="n">strat</span><span class="o">=</span><span class="s1">&#39;NONE&#39;</span><span class="p">,</span> <span class="n">md</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dazim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wellname</span><span class="o">=</span><span class="s1">&#39;UNKNOWN&#39;</span><span class="p">,</span> <span class="n">wellgeometry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param wmtype:</span>
+<span class="sd">        :param strat:</span>
+<span class="sd">        :param md:</span>
+<span class="sd">        :param dip:</span>
+<span class="sd">        :param dazim:</span>
+<span class="sd">        :param wellname:</span>
+<span class="sd">        :param wellgeometry:</span>
+<span class="sd">        :param verbose:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">dip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dazim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">WellMarker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">dazim</span><span class="p">,</span> <span class="n">wellgeometry</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>   <span class="c1"># no dip/dazim supplied -&gt; just basic function</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">WellMarker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">wellgeometry</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">strat</span> <span class="o">!=</span> <span class="s1">&#39;NONE&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">strat</span> <span class="o">=</span> <span class="n">strat</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wmtype</span> <span class="o">=</span> <span class="s1">&#39;STRT&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wmtype</span> <span class="o">=</span> <span class="n">wmtype</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">strat</span> <span class="o">=</span> <span class="s1">&#39;NONE&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wellname</span> <span class="o">=</span> <span class="n">wellname</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; overloading string operator &quot;&quot;&quot;</span>
+        <span class="c1"># print(&#39;Output:&#39;, self.type, self.strat, self.md)</span>
+        <span class="c1"># Stratigraphy.print_strat()</span>
+        <span class="k">return</span> <span class="s1">&#39;Well </span><span class="si">{0:s}</span><span class="s1">:</span><span class="se">\n</span><span class="si">{1:s}</span><span class="s1"> Marker, Formation age: </span><span class="si">{2:s}</span><span class="s1">, Depth: </span><span class="si">{3:8.3f}</span><span class="se">\n\t</span><span class="s1">&#39;</span><span class="o">.</span>\
+                   <span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wellname</span><span class="p">,</span> <span class="n">WellMarker</span><span class="o">.</span><span class="n">TYPE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wmtype</span><span class="p">],</span>
+                          <span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">strat</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">)</span> <span class="o">+</span> <span class="nb">super</span><span class="p">(</span><span class="n">WellMarker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="WellMarker.out_short"><a class="viewcode-back" href="../../documentation.html#modules.markermath.WellMarker.out_short">[docs]</a>    <span class="k">def</span> <span class="nf">out_short</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; short whoami operator &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{0:20.19s}</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRAT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">strat</span><span class="p">])</span> <span class="o">+</span> <span class="nb">super</span><span class="p">(</span><span class="n">WellMarker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>                    <span class="c1"># call test environment only if module is called standalone</span>
+    <span class="n">TWIDTH</span> <span class="o">=</span> <span class="mi">79</span>                               <span class="c1"># terminal width excluding EOL</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;module test: markermath&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">TWIDTH</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing: Class DipMarker&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Input:&#39;</span><span class="p">)</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="n">WellMarker</span><span class="p">(</span><span class="n">md</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">dip</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dazim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">strat</span><span class="o">=</span><span class="s1">&#39;TERT&#39;</span><span class="p">,</span> <span class="n">wellname</span><span class="o">=</span><span class="s1">&#39;Dixie02&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rotation starts:&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ang</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span>
+        <span class="n">marker</span><span class="o">.</span><span class="n">rotate_y</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span>
+        <span class="c1"># print(&#39;Rot: &#39;, ang, &#39; Result:&#39;, marker)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Importing &#39;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Markus von Steht.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

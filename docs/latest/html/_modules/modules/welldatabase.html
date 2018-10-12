@@ -1,0 +1,460 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>modules.welldatabase &#8212; Boreholetools 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for modules.welldatabase</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python #Linux shebang plus chmod to make executable</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># FILENAME: welldatabase.py</span>
+<span class="c1"># VERSION: 1.0 - Python 3.6</span>
+<span class="c1"># PURPOSE:</span>
+<span class="c1"># AUTHOR: MVS</span>
+<span class="c1"># LAST CHANGE: 04/09/2018</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># tools for setting up well database</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="kn">from</span> <span class="nn">modules</span> <span class="k">import</span> <span class="n">boreholemath</span>
+<span class="kn">from</span> <span class="nn">modules</span> <span class="k">import</span> <span class="n">fileio</span>
+<span class="kn">from</span> <span class="nn">modules</span> <span class="k">import</span> <span class="n">markermath</span>
+
+
+<div class="viewcode-block" id="Well"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well">[docs]</a><span class="k">class</span> <span class="nc">Well</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Well object holds shared horizontal and vertical length units and individual well properties:</span>
+<span class="sd">     WELL NAME, ORIGIN, GEOMETRY (DEVIATION SURVEY), WELL MARKERS</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">DEPTHUNIT</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+    <span class="n">SURFUNIT</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+    <span class="sd">&quot;&quot;&quot;define static variables and helper functions to force consistent length handling across well data&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Well.depth_to_metric"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.depth_to_metric">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">depth_to_metric</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        static function to set depth to metric length unit (meters)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Well</span><span class="o">.</span><span class="n">DEPTHUNIT</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Depth units switched to Metric&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Well.depth_to_imperial"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.depth_to_imperial">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">depth_to_imperial</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        static function to set depth to imperial length unit (feet)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Well</span><span class="o">.</span><span class="n">DEPTHUNIT</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Depth units switched to Imperial&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Well.surf_to_metric"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.surf_to_metric">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">surf_to_metric</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        static function to set surface units to metric length units (meters)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Well</span><span class="o">.</span><span class="n">SURFUNIT</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Surface units switched to Metric&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Well.surf_to_imperial"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.surf_to_imperial">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">surf_to_imperial</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        static function to set surface units to imperial length units (feet)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Well</span><span class="o">.</span><span class="n">SURFUNIT</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Surface units switched to Imperial&#39;</span><span class="p">)</span></div>
+
+    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;define static variable for verbosity&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Well.switch_verbose"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.switch_verbose">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">switch_verbose</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        static function to switch on/off verbose output to console</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Well.__init__"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.Well.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        constructor initializes all parameters to generate a well object containing</span>
+<span class="sd">            WELL NAME, ORIGIN, GEOMETRY (DEVIATION SURVEY)</span>
+
+
+
+<span class="sd">        .. note:: WELL MARKERS attribute is empty until :class:`WellMarkerLoading` is instantiated</span>
+
+<span class="sd">        :param \**kwargs: key/value list required to set up a well instance</span>
+
+<span class="sd">        :Keyword Arguments:</span>
+<span class="sd">            * *datadir* (``string``) --</span>
+<span class="sd">              path to data directory</span>
+<span class="sd">            * *filename_in* (``string``) --</span>
+<span class="sd">              deviation survey file</span>
+<span class="sd">            * *wellname* (``string``) --</span>
+<span class="sd">              unique well name</span>
+<span class="sd">            * *origin* ((``float``, ``float``, ``float``)) --</span>
+<span class="sd">              Cartesian location of well head (KB), Default ``(0.0, 0.0, 0.0)``</span>
+<span class="sd">            * *headerlines_in* (``int``) --</span>
+<span class="sd">              number of header lines in deviation survey file</span>
+<span class="sd">            * *columns_in* ((``int``, ``int``, ``int``)) --</span>
+<span class="sd">              default values for relevant data columns in deviation file (MD, INCL, AZIM), Default ``(1, 2, 3)``</span>
+<span class="sd">            * key/values handed to :class:`modules.boreholemath.TransformBoreHoleSurvey` during GEOMETRY loading</span>
+
+<span class="sd">                - *mode* (``int``) --</span>
+<span class="sd">                  deviation file reading / conversion / interpolation mode, Default ``0``: no output</span>
+<span class="sd">                - *interval* (``float``) --</span>
+<span class="sd">                  interpolation interval along MD, Default ``50.0``</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># ###########defaults</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;datadir&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;filename_in&#39;</span><span class="p">,</span> <span class="s1">&#39;sample-borehole.txt&#39;</span><span class="p">)</span>     <span class="c1"># deviation survey file</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;wellname&#39;</span><span class="p">,</span> <span class="s1">&#39;UNKNOWN&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>                <span class="c1"># Cartesian location of well head (KB)</span>
+        <span class="c1"># default values for deviation file shape</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;columns_in&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="c1"># default values for survey handling</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>                                <span class="c1"># no output default</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        
+        <span class="c1"># ###########variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wellname</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wellname&#39;</span><span class="p">]</span>
+        <span class="c1"># (N(X), E(Y), KB) with KB being a positive number above reference level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wellorigin</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">]</span>
+        <span class="c1"># Well.DEPTHUNIT, Well.SURFUNIT, Well.VERBOSE set by helper function</span>
+        
+        <span class="n">devinargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;depthunit&#39;</span><span class="p">:</span> <span class="n">Well</span><span class="o">.</span><span class="n">DEPTHUNIT</span><span class="p">,</span> <span class="s1">&#39;surfaceunits&#39;</span><span class="p">:</span> <span class="n">Well</span><span class="o">.</span><span class="n">SURFUNIT</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="n">Well</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
+                     <span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">],</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_in&#39;</span><span class="p">],</span>
+                     <span class="s1">&#39;wellname&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">wellname</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">wellorigin</span><span class="p">,</span> <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">],</span>
+                     <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;columns_in&#39;</span><span class="p">],</span> <span class="s1">&#39;relativeCoords&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span>
+                     <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;interval&#39;</span><span class="p">]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">boreholemath</span><span class="o">.</span><span class="n">TransformBoreHoleSurvey</span><span class="p">(</span><span class="o">**</span><span class="n">devinargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">markers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span></div>
+        <span class="c1"># keys are formation codes - do we need to allow for multiple entries in one key?</span>
+        <span class="c1">#                      -&gt; not for geometry purpose (else use subscripted key TERT_A /TERT_B)</span>
+        <span class="c1"># self.markers = [] #alternatively list</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;overloaded string operator&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;Well name: </span><span class="si">{0:s}</span><span class="s1">, X: </span><span class="si">{1:10.1f}</span><span class="s1">, Y: </span><span class="si">{2:10.1f}</span><span class="s1">, KB: </span><span class="si">{3:6.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wellname</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">wellorigin</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WellMarkerLoading"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellMarkerLoading">[docs]</a><span class="k">class</span> <span class="nc">WellMarkerLoading</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WellMarkerLoading.__init__"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellMarkerLoading.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ###########defaults</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;datadir&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;welldatabase&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;filename_in&#39;</span><span class="p">,</span> <span class="s1">&#39;sample-markers.txt&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;columns_in&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;filename_strat_def&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;filename_strat_order&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># ###########variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;welldatabase&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datadir</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span> <span class="o">=</span> <span class="n">WellDatabase</span><span class="p">(</span><span class="n">datadir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datadir</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: generating default WellDatabase&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span>
+
+        <span class="c1"># ###########update stratigraphy before loading marker file</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_strat_def&#39;</span><span class="p">]:</span>
+            <span class="n">markermath</span><span class="o">.</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">load_strat_definition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datadir</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_strat_def&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="c1"># ###########select markers in stratigraphy relevant for calculations</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_strat_order&#39;</span><span class="p">]:</span>
+            <span class="n">markermath</span><span class="o">.</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">load_strat_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datadir</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_strat_order&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+            <span class="n">markermath</span><span class="o">.</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">print_strat</span><span class="p">()</span>
+        <span class="c1"># ###########load markers and match the ones mentioned in STRATORDER to the well database</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_strat_markers</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_in&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;columns_in&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="WellMarkerLoading.load_strat_markers"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellMarkerLoading.load_strat_markers">[docs]</a>    <span class="k">def</span> <span class="nf">load_strat_markers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">markerfile</span><span class="p">,</span> <span class="n">headerlines</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param markerfile:</span>
+<span class="sd">        :param headerlines:</span>
+<span class="sd">        :param columns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opening marker file:&#39;</span><span class="p">)</span>
+        <span class="n">mfargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">datadir</span><span class="p">,</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">markerfile</span><span class="p">,</span>
+                  <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="n">headerlines</span><span class="p">,</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="n">columns</span><span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">))</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: Column specification in marker file requires three or five rows to be supplied</span><span class="se">\n\t</span><span class="s1">format:</span><span class="se">\</span>
+<span class="s1">                    WELL NAME, MARKER CODE, DEPTH MD [length], DIP(opt) [deg], DAZIM(opt) [deg]&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># build dictionary of relevant markers</span>
+            <span class="n">validmarkers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">markermath</span><span class="o">.</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRATORDER</span><span class="p">:</span>
+                <span class="n">validmarkers</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="c1"># read marker table</span>
+            <span class="n">markerreader</span> <span class="o">=</span> <span class="n">fileio</span><span class="o">.</span><span class="n">BHReaderWriter</span><span class="p">(</span><span class="o">**</span><span class="n">mfargs</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">markerreader</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="c1"># find corresponding well</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">wellin</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">markerin</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="n">wmargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;wellname&#39;</span><span class="p">:</span> <span class="n">wellin</span><span class="p">,</span> <span class="s1">&#39;wmtype&#39;</span><span class="p">:</span> <span class="s1">&#39;STRAT&#39;</span><span class="p">,</span> <span class="s1">&#39;strat&#39;</span><span class="p">:</span> <span class="n">markerin</span><span class="p">,</span> <span class="s1">&#39;md&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])}</span>
+                    <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                        <span class="n">wmargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;wellname&#39;</span><span class="p">:</span> <span class="n">wellin</span><span class="p">,</span> <span class="s1">&#39;wmtype&#39;</span><span class="p">:</span> <span class="s1">&#39;STRAT&#39;</span><span class="p">,</span> <span class="s1">&#39;strat&#39;</span><span class="p">:</span> <span class="n">markerin</span><span class="p">,</span> <span class="s1">&#39;md&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])}</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">wmargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;wellname&#39;</span><span class="p">:</span> <span class="n">wellin</span><span class="p">,</span> <span class="s1">&#39;wmtype&#39;</span><span class="p">:</span> <span class="s1">&#39;STRAT&#39;</span><span class="p">,</span> <span class="s1">&#39;strat&#39;</span><span class="p">:</span> <span class="n">markerin</span><span class="p">,</span> <span class="s1">&#39;md&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                                  <span class="s1">&#39;dip&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s1">&#39;dazim&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">])}</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Line: </span><span class="si">{0:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">)))</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Inargs: </span><span class="si">{0:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">wmargs</span><span class="p">)))</span>
+                    <span class="k">if</span> <span class="n">wellin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="o">.</span><span class="n">wells</span> <span class="ow">and</span> <span class="n">markerin</span> <span class="ow">in</span> <span class="n">validmarkers</span><span class="p">:</span>
+                        <span class="c1"># add marker to well</span>
+                        <span class="n">wmargs</span><span class="p">[</span><span class="s1">&#39;wellgeometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="n">wellin</span><span class="p">]</span><span class="o">.</span><span class="n">geometry</span>
+                        <span class="c1"># array solution</span>
+                        <span class="c1"># self.welldb.wells[wellin].markers.append(WellMarker(**wmargs))</span>
+                        <span class="c1"># dict solution</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="n">wellin</span><span class="p">]</span><span class="o">.</span><span class="n">markers</span><span class="p">[</span><span class="n">markerin</span><span class="p">]</span> <span class="o">=</span> <span class="n">markermath</span><span class="o">.</span><span class="n">WellMarker</span><span class="p">(</span><span class="o">**</span><span class="n">wmargs</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Class Well: Adding stratigraphy well marker to </span><span class="si">{0}</span><span class="s1"> using arguments:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wellin</span><span class="p">))</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">wmargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stratigraphy marker </span><span class="si">{0}</span><span class="s1"> in well </span><span class="si">{1}</span><span class="s1"> discarded&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">markerin</span><span class="p">,</span> <span class="n">wellin</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Type error during conversion of marker file&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Value error during conversion of marker file&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Well markers successfully loaded to well database&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">print_strat_markers</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="WellMarkerLoading.print_strat_markers"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellMarkerLoading.print_strat_markers">[docs]</a>    <span class="k">def</span> <span class="nf">print_strat_markers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="o">.</span><span class="n">wells</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">welldb</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">markertab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">markermath</span><span class="o">.</span><span class="n">Stratigraphy</span><span class="o">.</span><span class="n">STRATORDER</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">markertab</span> <span class="ow">in</span> <span class="n">current</span><span class="o">.</span><span class="n">markers</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:02d}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">markers</span><span class="p">[</span><span class="n">markertab</span><span class="p">]</span><span class="o">.</span><span class="n">out_short</span><span class="p">()))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:02d}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: printStratMarkers output error&#39;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="WellDatabase"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellDatabase">[docs]</a><span class="k">class</span> <span class="nc">WellDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    WellDatabase object factory template creates well instances based on a user supplied well spreadsheet</span>
+<span class="sd">    and corresponding supporting files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WellDatabase.__init__"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellDatabase.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets class parameters based on external keywords and / or robust defaults</span>
+
+<span class="sd">        :param kwargs: unpacked keyword dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># ###########defaults</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;datadir&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;depthunit&#39;</span><span class="p">,</span> <span class="s1">&#39;ft&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;surfaceunits&#39;</span><span class="p">,</span> <span class="s1">&#39;ft&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;filename_in&#39;</span><span class="p">,</span> <span class="s1">&#39;sample-wellheads.txt&#39;</span><span class="p">)</span>     <span class="c1"># default well head file</span>
+        <span class="c1"># default values for header file shape</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;columns_in&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="c1"># default values for survey handling</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="c1"># ###########variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="n">Well</span><span class="o">.</span><span class="n">switch_verbose</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opening well head file:&#39;</span><span class="p">)</span>
+        <span class="c1"># create dictionary based on kwargs and load well head spreadsheet</span>
+        <span class="n">welldbinargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">],</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename_in&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;headerlines_in&#39;</span><span class="p">],</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;columns_in&#39;</span><span class="p">]}</span>
+        <span class="n">headreader</span> <span class="o">=</span> <span class="n">fileio</span><span class="o">.</span><span class="n">BHReaderWriter</span><span class="p">(</span><span class="o">**</span><span class="n">welldbinargs</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">headreader</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;depthunit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+            <span class="n">Well</span><span class="o">.</span><span class="n">depth_to_metric</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;surfaceunits&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+            <span class="n">Well</span><span class="o">.</span><span class="n">surf_to_metric</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>    
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># convert spreadsheet data to proper type and check for depth-sorting</span>
+                <span class="n">wname</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># str: WELLNAME</span>
+                <span class="c1"># 3 x flt: ORIGIN X, Y, Z(KB)</span>
+                <span class="n">wcoordinates</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]])</span>
+                <span class="n">wfname</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>        <span class="c1"># str: DEVIATION FILENAME</span>
+                <span class="c1"># create dictionary based on info in well head file</span>
+                <span class="n">wellinargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">],</span> <span class="s1">&#39;wellname&#39;</span><span class="p">:</span> <span class="n">wname</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="n">wcoordinates</span><span class="p">,</span>
+                              <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="n">wfname</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span> <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;interval&#39;</span><span class="p">]}</span>
+                <span class="c1"># do not allow duplicates and instantiate new well</span>
+                <span class="k">if</span> <span class="n">wname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="n">wname</span><span class="p">]</span> <span class="o">=</span> <span class="n">Well</span><span class="p">(</span><span class="o">**</span><span class="n">wellinargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: Double occurrence of name in well head file, keeping first instance&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Error during conversion of well head data&#39;</span><span class="p">)</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Input Name: </span><span class="si">{0:s}</span><span class="s1">, X: </span><span class="si">{1:10.1f}</span><span class="s1">, Y: </span><span class="si">{2:10.1f}</span><span class="s1">, KB: </span><span class="si">{3:6.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wname</span><span class="p">,</span> <span class="o">*</span><span class="n">wcoordinates</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="n">wname</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="WellDatabase.get_wells_sorted"><a class="viewcode-back" href="../../documentation.html#modules.welldatabase.WellDatabase.get_wells_sorted">[docs]</a>    <span class="k">def</span> <span class="nf">get_wells_sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        helper function to return a key-sorted (WELL NAME) dictionary for reporting</span>
+
+<span class="sd">        :return: dictionary of well instances keyed by WELL NAME</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;overloaded string operator&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;Number of wells loaded: </span><span class="si">{0:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells</span><span class="p">))</span></div>
+
+            
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>                  <span class="c1"># call test environment only if module is called standalone</span>
+    <span class="n">TWIDTH</span> <span class="o">=</span> <span class="mi">79</span>                               <span class="c1"># terminal width excluding EOL</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;module test: welldatabase&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">TWIDTH</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing: Class Well&#39;</span><span class="p">)</span>
+    <span class="n">well</span> <span class="o">=</span> <span class="n">Well</span><span class="p">(</span><span class="n">datadir</span><span class="o">=</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">well</span><span class="p">)</span>
+    <span class="n">Well</span><span class="o">.</span><span class="n">depth_to_metric</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing: Class WellDatabase&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opening well head file and creating well database:&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">inargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data&#39;</span><span class="p">,</span> <span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="s1">&#39;sample-wellheads.txt&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+        <span class="n">welldb</span> <span class="o">=</span> <span class="n">WellDatabase</span><span class="p">(</span><span class="o">**</span><span class="n">inargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">welldb</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Something went wrong with the parameters of the well database&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: File not found during building of well database&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing: Class WellMarker&#39;</span><span class="p">)</span>
+    <span class="n">inargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datadir&#39;</span><span class="p">:</span> <span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data&#39;</span><span class="p">,</span> <span class="s1">&#39;filename_strat_def&#39;</span><span class="p">:</span> <span class="s1">&#39;sample-stratdef.txt&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;filename_strat_order&#39;</span><span class="p">:</span> <span class="s1">&#39;sample-stratorder.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">loading</span> <span class="o">=</span> <span class="n">WellMarkerLoading</span><span class="p">(</span><span class="o">**</span><span class="n">inargs</span><span class="p">)</span>
+    <span class="n">loading</span><span class="o">.</span><span class="n">print_strat_markers</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing: glob module&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="n">mylist</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">out*.txt&#39;</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">mylist</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">TWIDTH</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Importing &#39;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Markus von Steht.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

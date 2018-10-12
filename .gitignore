@@ -6,6 +6,8 @@
 out_*.txt
 .idea
 docs/Directional Surveys
+docs/latest/doctrees
+.buildinfo
 
 # Compiled source #
 ###################

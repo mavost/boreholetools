@@ -1,0 +1,374 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>boreholetools &#8212; Boreholetools 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for boreholetools</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python #Linux shebang plus chmod to make executable</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># FILENAME: boreholetools.py</span>
+<span class="c1"># VERSION: 1.0 - Python 3.6</span>
+<span class="c1"># PURPOSE:</span>
+<span class="c1"># AUTHOR: MVS</span>
+<span class="c1"># LAST CHANGE: 23/09/2018</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot; boreholetools main control module</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># add extra path into search list for paths</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;modules&#39;</span><span class="p">))</span>
+<span class="c1"># disable for production</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">modules.welldatabase</span> <span class="k">import</span> <span class="n">WellDatabase</span><span class="p">,</span> <span class="n">WellMarkerLoading</span>
+    <span class="kn">from</span> <span class="nn">modules.boreholemath</span> <span class="k">import</span> <span class="n">TransformBoreHoleSurvey</span>
+    <span class="kn">from</span> <span class="nn">modules.dipmath</span> <span class="k">import</span> <span class="n">DipPoint</span><span class="p">,</span> <span class="n">DipMarker</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Module not found&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1"># https://stackoverflow.com/questions/3853722/python-argparse-how-to-insert-newline-in-the-help-text</span>
+<div class="viewcode-block" id="SmartFormatter"><a class="viewcode-back" href="../documentation.html#boreholetools.SmartFormatter">[docs]</a><span class="k">class</span> <span class="nc">SmartFormatter</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">HelpFormatter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; a quick re-classing to enable RAW help descriptions&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_split_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;R|&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>  
+        <span class="c1"># this is the RawTextHelpFormatter._split_lines</span>
+        <span class="k">return</span> <span class="n">argparse</span><span class="o">.</span><span class="n">HelpFormatter</span><span class="o">.</span><span class="n">_split_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="str2bool"><a class="viewcode-back" href="../documentation.html#boreholetools.str2bool">[docs]</a><span class="k">def</span> <span class="nf">str2bool</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; a quick reader for boolean type argument strings&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="s1">&#39;Exception, Parser Error: Boolean value expected.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="validintervalrange"><a class="viewcode-back" href="../documentation.html#boreholetools.validintervalrange">[docs]</a><span class="k">def</span> <span class="nf">validintervalrange</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; a quick reader for specific float type argument strings&quot;&quot;&quot;</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="s1">&#39;Exception, Parser Error: float out of range.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../documentation.html#boreholetools.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">manualargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; parser for defining and reading key words from command line&quot;&quot;&quot;</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">terminal</span> <span class="o">=</span> <span class="mi">79</span>                               <span class="c1"># terminal width excluding EOL</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">formatter_class</span><span class="o">=</span><span class="n">SmartFormatter</span><span class="p">)</span>
+    <span class="c1"># define keywords</span>
+    <span class="c1"># general section</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--datadir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;.</span><span class="se">\\</span><span class="s1">data&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1">: path to data directory (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--depthunit&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1"> (ft, m): input and output unit for vertical length (Z) (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--surfaceunits&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;ft&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1"> (ft, m): input and output units for horizontal lengths (X,Y) (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;bool: verbose / debug output (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="c1"># well database section</span>
+    <span class="n">wdb</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;Keywords to generate well database&#39;</span><span class="p">)</span>
+    <span class="n">wdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--wdbfile&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;sample-wellheads.txt&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1">: CSV file containing well name, well head origin, and respective filename for &#39;</span>
+                             <span class="s1">&#39;directional survey (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">wdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--wdbfilehd&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1">: header lines to skip in well head file (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">wdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--wdbfilecol&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;TUP(5 * INT): index # of rows containing WELL NAME, X, Y, KB, FILENAME&#39;</span>
+                             <span class="s1">&#39;(def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">wdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--wdbmode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;R|</span><span class="si">%(type)s</span><span class="s1">: specifies conversion mode</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;for loaded directional survey (def: </span><span class="si">%(default)s</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39; 0: no output</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39; 1: output original survey as Cartesian X, Y, Z</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39; 2: output interpolated survey as MD, INCL, AZIM</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39; 3: output interpolated survey as Cartesian X, Y, Z</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">wdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--wdbinterval&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">validintervalrange</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;flt &gt;= 0.1: interpolation interval along MD in output mode 2/3 (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="c1"># well marker section</span>
+    <span class="n">mdb</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;Keywords to generate well marker database&#39;</span><span class="p">)</span>
+    <span class="n">mdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--mrkfile&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;sample-markers.txt&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1">: CSV file containing well name, marker code, depth, and optional&#39;</span>
+                             <span class="s1">&#39;dip orientations (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">mdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--mrkfilehd&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(type)s</span><span class="s1">: header lines to skip in marker file (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">mdb</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--mrkfilecol&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;TUP(5 * INT): index # of rows containing WELL NAME, MARKER CODE, MD [length],&#39;</span>
+                             <span class="s1">&#39;DIP(opt) [deg], DAZIM(opt) [deg] (def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="c1"># stratigraphy section</span>
+    <span class="n">strat</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;Keywords to load stratigraphy for marker import&#39;</span><span class="p">)</span>
+    <span class="n">strat</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--stratdeffile&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;sample-stratdef.txt&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;R|</span><span class="si">%(type)s</span><span class="s1">: fixed-format CSV file containing marker code,</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;marker name and optional data</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;(def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">strat</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--stratordfile&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;sample-stratorder.txt&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;R|</span><span class="si">%(type)s</span><span class="s1">: fixed-format CSV file containing white list</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;of valid markers in order of stratigraphic age</span><span class="se">\n</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;(def: </span><span class="si">%(default)s</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="c1"># parse keywords</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># for zero-length arguments show help method</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">manualargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="s1">&#39;Nothing to do&#39;</span><span class="p">)</span>
+        <span class="c1"># parse arguments and throw SystemExit for bad keywords</span>
+        <span class="c1"># in default behavior manualargs == None and parser uses sys.argv</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">manualargs</span><span class="p">)</span>
+        <span class="c1"># display resulting Namespace object</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parsed namespace:&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parsed dict:&#39;</span><span class="p">,</span> <span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+        <span class="c1"># return keywords in Namespace object as a dictionary</span>
+        <span class="k">return</span> <span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">SystemExit</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="c1"># https://stackoverflow.com/questions/19804254/how-to-protect-the-python-interpreter-against-termination-when-a-called-module-p</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: Catching &quot;&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;&quot; System Exit&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ne">SystemExit</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+            <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+        <span class="c1"># for testing parameters</span>
+        <span class="c1"># return None</span>
+
+
+<div class="viewcode-block" id="getstatickeywords"><a class="viewcode-back" href="../documentation.html#boreholetools.getstatickeywords">[docs]</a><span class="k">def</span> <span class="nf">getstatickeywords</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; for clarity and non-script usage define defaults for all valid keywords&quot;&quot;&quot;</span>
+    <span class="n">statargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="c1"># general section</span>
+    <span class="c1"># STR: path to data directory</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;.</span><span class="se">\\</span><span class="s1">data&#39;</span>
+    <span class="c1"># STR(&#39;ft&#39;, &#39;m&#39;): input and output unit for vertical length (Z)</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;depthunit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+    <span class="c1"># STR(&#39;ft&#39;, &#39;m&#39;): input and output units for horizontal lengths (X,Y)</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;surfaceunits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ft&#39;</span>
+    <span class="c1"># BOOL: verbose / debug output</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># well database section</span>
+    <span class="c1"># STR: CSV file containing well name, well head origin, and respective filename for directional survey</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;wdbfile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sample-wellheads.txt&#39;</span>
+    <span class="c1"># INT: header lines to skip in well head file</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;wdbfilehd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># TUP(5 * INT): indeces of rows containing WELL NAME, X, Y, KB, FILENAME</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;wdbfilecol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># INT: specifies output mode for directional survey file</span>
+    <span class="c1">#      0: no output</span>
+    <span class="c1">#      1: output original survey as Cartesian X, Y, Z</span>
+    <span class="c1">#      2: output interpolated survey as MD, INCL, AZIM</span>
+    <span class="c1">#      3: output interpolated survey as Cartesian X, Y, Z</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;wdbmode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="c1"># FLOAT: interpolation interval along MD w.r.t. output mode &gt;=.01</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;wdbinterval&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">50.0</span>
+    <span class="c1"># well marker section</span>
+    <span class="c1"># STR: CSV file containing well name, marker code, depth, and optional dip orientations</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;mrkfile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sample-markers.txt&#39;</span>
+    <span class="c1"># INT: header lines to skip in marker file</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;mrkfilehd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># TUP(5 * INT): indeces of rows containing WELL NAME, MARKER CODE, MD [length], DIP(opt) [deg], DAZIM(opt) [deg]</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;mrkfilecol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># stratigraphy section</span>
+    <span class="c1"># STR: fixed-format CSV file containing marker code, marker name and optional data</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;stratdeffile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sample-stratdef.txt&#39;</span>
+    <span class="c1"># STR: fixed-format CSV file containing white list of valid markers in order of stratigraphic age</span>
+    <span class="n">statargs</span><span class="p">[</span><span class="s1">&#39;stratordfile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sample-stratorder.txt&#39;</span>
+    <span class="k">return</span> <span class="n">statargs</span></div>
+
+
+<div class="viewcode-block" id="buildwelldb"><a class="viewcode-back" href="../documentation.html#boreholetools.buildwelldb">[docs]</a><span class="k">def</span> <span class="nf">buildwelldb</span><span class="p">(</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; pop and prepare parameter dict and build well db&quot;&quot;&quot;</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">general</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">,</span> <span class="s1">&#39;depthunit&#39;</span><span class="p">,</span> <span class="s1">&#39;surfaceunits&#39;</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">]</span>
+    <span class="n">specific</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="s1">&#39;wdbfile&#39;</span><span class="p">,</span> <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="s1">&#39;wdbfilehd&#39;</span><span class="p">,</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="s1">&#39;wdbfilecol&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;wdbmode&#39;</span><span class="p">,</span> <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;wdbinterval&#39;</span><span class="p">}</span>
+    <span class="n">wdbargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">general</span><span class="p">:</span>
+            <span class="n">wdbargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">specific</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;key:&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;, value:&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;, KWarg:&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">value</span><span class="p">])</span>
+            <span class="n">wdbargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Key not found during remapping...&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">wdbargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Remapped args:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">wdbargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">WellDatabase</span><span class="p">(</span><span class="o">**</span><span class="n">wdbargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="buildmarkerdb"><a class="viewcode-back" href="../documentation.html#boreholetools.buildmarkerdb">[docs]</a><span class="k">def</span> <span class="nf">buildmarkerdb</span><span class="p">(</span><span class="n">welldb</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; pop and prepare parameter dict and build marker db</span>
+
+<span class="sd">    :param welldb:</span>
+<span class="sd">    :param kwargs:</span>
+<span class="sd">    :return: WellMarkerLoading object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">general</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;datadir&#39;</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">]</span>
+    <span class="n">specific</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;filename_in&#39;</span><span class="p">:</span> <span class="s1">&#39;mrkfile&#39;</span><span class="p">,</span> <span class="s1">&#39;headerlines_in&#39;</span><span class="p">:</span> <span class="s1">&#39;mrkfilehd&#39;</span><span class="p">,</span> <span class="s1">&#39;columns_in&#39;</span><span class="p">:</span> <span class="s1">&#39;mrkfilecol&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;filename_strat_def&#39;</span><span class="p">:</span> <span class="s1">&#39;stratdeffile&#39;</span><span class="p">,</span> <span class="s1">&#39;filename_strat_order&#39;</span><span class="p">:</span> <span class="s1">&#39;stratordfile&#39;</span><span class="p">}</span>
+    <span class="n">mdbargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># todo</span>
+        <span class="n">mdbargs</span><span class="p">[</span><span class="s1">&#39;welldatabase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">welldb</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">general</span><span class="p">:</span>
+            <span class="n">mdbargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">specific</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;key:&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;, value:&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;, KWarg:&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">value</span><span class="p">])</span>
+            <span class="n">mdbargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exception: Key not found during remapping...&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">mdbargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Remapped args:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mdbargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">WellMarkerLoading</span><span class="p">(</span><span class="o">**</span><span class="n">mdbargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../documentation.html#boreholetools.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    main function is a wrapper for parsing keywords and executing main functions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">terminal</span> <span class="o">=</span> <span class="mi">79</span>                               <span class="c1"># terminal width excluding EOL</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">testing</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># parse keywords from command line</span>
+    <span class="c1"># quick test manual arguments to simulate command line</span>
+    <span class="c1"># kwargs = parse([&#39;--mode&#39;, &#39;1&#39;, &#39;--verbose&#39;, &#39;1&#39;])</span>
+    <span class="c1"># normal parsing of arguments, btw. program fails with unknown/bad parameters</span>
+    <span class="c1">#try:</span>
+    <span class="c1">#    kwargs = parse()</span>
+    <span class="c1"># parser will throw sys.exit() internally and externally,</span>
+    <span class="c1"># we stop execution, then - &#39;finally&#39; not needed at this stage</span>
+    <span class="c1">#except SystemExit:</span>
+    <span class="c1">#    os._exit(1)</span>
+    <span class="c1"># in production the following block ist disabled</span>
+    <span class="c1"># in order to only allow access by command line and file data</span>
+    <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: Parser completely failed - using internal defaults&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">getstatickeywords</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Args before generating WDB:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="n">welldb</span> <span class="o">=</span> <span class="n">buildwelldb</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">welldb</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Args before generating MDB:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="n">markerdb</span> <span class="o">=</span> <span class="n">buildmarkerdb</span><span class="p">(</span><span class="n">welldb</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">markerdb</span><span class="o">.</span><span class="n">print_strat_markers</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Args after generating MDB:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">testing</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;boreholetools testing&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">terminal</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="n">welldb</span> <span class="o">=</span> <span class="n">WellDatabase</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">TransformBoreHoleSurvey</span><span class="p">(</span><span class="n">datadir</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">filename_in</span><span class="o">=</span><span class="s1">&#39;sample-borehole.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">DipPoint</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">dmarker</span> <span class="o">=</span> <span class="n">DipMarker</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;run completed without errors...&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">terminal</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<span class="c1">##########################################################################</span>
+<span class="c1"># Check to see if this file is being executed as the &#39;main&#39; python</span>
+<span class="c1"># script instead of being used as a module by some other python script</span>
+<span class="c1"># This allows us to use the module which ever way we want.</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Boreholetools 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Markus von Steht.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

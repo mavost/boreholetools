@@ -1,6 +1,6 @@
 # boreholetools
-*VERSION: 1.0*
-*LAST CHANGE: 20/09/2018*
+*VERSION: 0.0.1*
+*LAST CHANGE: 09/10/2018*
 
 boreholetools is a collection of modules to QC geoscientific borehole data of various types
 * convert/verify/interpolate well trajectory data / deviation surveys
@@ -49,14 +49,6 @@ Explain what these tests test and why
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
@@ -67,7 +59,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-We use [Git](http://git-scm.com/) for versioning.
+We use [Git](http://git-scm.com/) for versioning and [Sphinx](http://www.sphinx-doc.org/) for documentation.
 
 ## Authors
 
@@ -81,6 +73,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* **Billie Thompson** - *README template* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Billie Thompson** - *README template* - [on github.com](https://github.com/PurpleBooth)
+* **Rich Yap** - *A Simple Tutorial on How to document your Python Project using Sphinx* - [on medium.com](https://medium.com/@richyap13/a-simple-tutorial-on-how-to-document-your-python-project-using-sphinx-and-rinohtype-177c22a15b5b)
+* **Miller Medeiros** - *A default CSS file* - [on github.com](https://gist.github.com/millermedeiros/771852)
 * Sawaryn, S. J., & Thorogood, J. L. (2005, March 1). A Compendium of Directional Calculations Based on the Minimum Curvature Method. Society of Petroleum Engineers. doi:10.2118/84246-PA [Link](https://www.onepetro.org/journal-paper/SPE-84246-PA)
 * etc
