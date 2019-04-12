@@ -1,62 +1,53 @@
 Usage
 *****
 
-boreholetools is a collection of modules to QC geoscientific borehole data of various types
+boreholetools is a collection of modules to QC geoscientific borehole data of various types.
 
-* convert/verify/interpolate well trajectory data / deviation surveys
-* convert apparent bed dip/dip azimuth information measured within a wellbore to true bed dip/dip azimuth
-* calculate true vertical/stratigraphic thickness from well marker files using dip information
+Main features:
+
+* convert/verify/interpolate well trajectory data, i.e. deviation surveys
+* convert apparent bed dip/dip azimuth data referenced to a wellbore coordinate system into true bed dip/dip azimuth
+* calculate true vertical/stratigraphic thickness of beds using a dip model
+
+Default behavior unless specified otherwise:
+
+* reads a list of well data in the form of CSV spread sheet files
+* processes one or many well data in one iteration
+* output generated will be another set of CSV files replacing the previous run
 
 .. note:: Documentation in progress...
 
 Getting Started
 ===============
 
-1. a
-2. b
-3. c
-4. d
-
 Prerequisites
 -------------
+Only Python 3 standard library modules are used currently.
 
 Installation
 ------------
 
-Testing
-=======
+1. Install Python version 3.6.3 or later
+2. Clone the respective project repository from github::
 
-1. a
+    git clone https://github.com/mavost/boreholetools.git
 
-    - b
-    - c
+3. Invoke a test run of all modules using no arguments and default input files residing in ``/data``::
 
-    .. note:: d
+    python boreholetools.py --testing
 
-    - e
+4. If testing run was successful a default run requires a number of keyword arguments for accessing the desired behavior and input files to support the processing::
 
-2. Install
-    A. Do
-    B. Do::
+    python boreholetools.py KEYWORDS
 
-        mysql -u root < <Path to file>/create_db.sql
+Function and Keyword Description
+================================
 
-    .. note:: f
-
-3. Initialize::
-
-    $ python
-    >>
-    >>
-
-4. Run boreholetools.py::
-
-    python boreholetools.py ARGUMENTS
-
+The workflow of ``boreholetools`` is directed by operational keywords and parameters
 
 Built With
 ==========
-* a
+The project was developed using Python version 3.6.3 on a Windows 7 x64 machine.
 
 Versioning
 ==========

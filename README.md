@@ -1,61 +1,51 @@
 # boreholetools
-*VERSION: 0.0.1*
-*LAST CHANGE: 09/10/2018*
+*VERSION: 0.0.2*
+*LAST CHANGE: 2019/04/12*
 
 boreholetools is a collection of modules to QC geoscientific borehole data of various types
-* convert/verify/interpolate well trajectory data / deviation surveys
-* convert apparent bed dip/dip azimuth information measured within a wellbore to true bed dip/dip azimuth
-* calculate true vertical/stratigraphic thickness from well marker files using dip information
+
+Main features:
+
+* convert/verify/interpolate well trajectory data, i.e. deviation surveys
+* convert apparent bed dip/dip azimuth data referenced to a wellbore coordinate system into true bed dip/dip azimuth
+* calculate true vertical/stratigraphic thickness of beds using a dip model
+
+Default behavior of modules unless specified otherwise by using additional keyword arguments:
+
+* reads a list of well data in the form of CSV spread sheet files
+* processes one or many well data in one iteration
+* output generated will be another set of CSV files replacing the previous run
+
+```note: Documentation in progress...```
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Only Python 3 standard library modules are used currently.
 
-```
-Give examples
-```
+### Installation
 
-### Installing
+1. Install Python version 3.6.3 or later
+2. Clone the respective project repository from github:  
+```git clone https://github.com/mavost/boreholetools.git```
 
-A step by step series of examples that tell you how to get a development env running
+3. Invoke a test run of all modules using no arguments and default input files residing in `/data`:  
+```python boreholetools.py --testing```
 
-Say what the step will be
+4. If testing run was successful a default run requires a number of keyword arguments for accessing the desired behavior and input files to support the processing:  
+```python boreholetools.py KEYWORDS```
 
-```
-Give the example
-```
+### Function and Keyword Description
+A brief self-documentation of keywords and operational modes is invoked on command line using:
+```python boreholetools.py --help```
+Example input files reside in `/data`.
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+```note: Documentation in progress...```
 
 ## Built With
 
-* tbd.
+The project was developed using Python version 3.6.3 on a Windows 7 x64 machine.
 
 ## Versioning
 

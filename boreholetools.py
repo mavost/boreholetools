@@ -4,7 +4,7 @@
 # VERSION: 1.0 - Python 3.6
 # PURPOSE:
 # AUTHOR: MVS
-# LAST CHANGE: 23/09/2018
+# LAST CHANGE: 2019/04/12
 # ------------------------------------------------------------
 """ boreholetools main control module
 """
@@ -56,7 +56,7 @@ def validintervalrange(v):
 
 def parse(manualargs=None):
     """ parser for defining and reading key words from command line"""
-    debug = False
+    debug = True
     terminal = 79                               # terminal width excluding EOL
     parser = argparse.ArgumentParser(formatter_class=SmartFormatter)
     # define keywords
@@ -112,7 +112,6 @@ def parse(manualargs=None):
     try:
         # for zero-length arguments show help method
         if len(sys.argv) == 1 and manualargs is None:
-            parser.print_help(sys.stderr)
             raise SystemExit('Nothing to do')
         # parse arguments and throw SystemExit for bad keywords
         # in default behavior manualargs == None and parser uses sys.argv
@@ -128,11 +127,8 @@ def parse(manualargs=None):
     except SystemExit as err:
         # https://stackoverflow.com/questions/19804254/how-to-protect-the-python-interpreter-against-termination-when-a-called-module-p
         print('Warning: Catching "'+str(err)+'" System Exit')
-        if SystemExit.code == 2: 
-            parser.print_help()
-        sys.exit(0)
-        # for testing parameters
-        # return None
+        parser.print_help()
+        sys.exit(2)
 
 
 def getstatickeywords():
@@ -238,20 +234,20 @@ def main():
     kwargs = None
 
     # parse keywords from command line
-    # quick test manual arguments to simulate command line
-    # kwargs = parse(['--mode', '1', '--verbose', '1'])
-    # normal parsing of arguments, btw. program fails with unknown/bad parameters
-    #try:
-    #    kwargs = parse()
-    # parser will throw sys.exit() internally and externally,
-    # we stop execution, then - 'finally' not needed at this stage
-    #except SystemExit:
-    #    os._exit(1)
-    # in production the following block ist disabled
-    # in order to only allow access by command line and file data
-    if kwargs is None:
-        print('Warning: Parser completely failed - using internal defaults')
+    if len(sys.argv)==2 and sys.argv[1]=='--testing':
+        testing = True
         kwargs = getstatickeywords()
+    else:
+        # if parsing of command line arguments fails because of unknown/bad parameters
+        # parser lib throws sys.exit() internally and externally, which requires handling
+        try:
+            kwargs = parse()
+            # quick test manual arguments to simulate command line
+            #kwargs = parse(['--wdbmode', '1', '--verbose', '1'])
+        # we decide to stop execution then - 'finally' not needed at this stage
+        except SystemExit as err:
+            sys.exit(err.code)
+
     print(terminal*'=')
     if debug:
         print('Args before generating WDB:\n', kwargs)
@@ -273,7 +269,11 @@ def main():
         print('boreholetools testing'.ljust(terminal, '-'))
         print(terminal*'=')
         welldb = WellDatabase(**kwargs)
+        print('              testing WDB'.ljust(terminal, '-'))
+        print(welldb)
+        print(terminal*'=')
         transform = TransformBoreHoleSurvey(datadir='data', filename_in='sample-borehole.txt', mode=2, verbose=False)
+        markerdb = buildmarkerdb(welldb, kwargs)
         point = DipPoint(45, 0)
         dmarker = DipMarker(5000, 45, 10, transform)
     print(terminal*'=')
