@@ -37,8 +37,9 @@ Only Python 3 standard library modules are used currently.
 ```python boreholetools.py KEYWORDS```
 
 ### Function and Keyword Description
-A brief self-documentation of keywords and operational modes is invoked on command line using:
+A brief self-documentation of keywords and operational modes is invoked on command line using:  
 ```python boreholetools.py --help```
+
 Example input files reside in `/data`.
 
 ```note: Documentation in progress...```
